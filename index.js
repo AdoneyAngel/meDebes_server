@@ -48,7 +48,7 @@ app.get("/getUserByMail", (req, res) => {
             console.log(err)
 
         } else {
-            res.send(queryRes[0])
+            res.send(queryRes)
         }
       })  
     }
