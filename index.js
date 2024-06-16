@@ -48,6 +48,7 @@ app.get("/getUserByMail", (req, res) => {
             console.log(err)
 
         } else {
+            console.log("Desde api")
             res.send(queryRes[0])
         }
       })  
