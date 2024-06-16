@@ -39,7 +39,7 @@ app.get("/getUsers", (req, res) => {
     })
 })
 
-app.post("/getUserByMail", (req, res) => {
+app.get("/getUserByMail", (req, res) => {
     const mail = req.body.mail
 
     if (mail) {
