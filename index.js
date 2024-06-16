@@ -45,7 +45,7 @@ app.get("/getUserByMail", (req, res) => {
     console.log("llamado")
 
     if (mail) {
-      db.query("CALL sp_medebes_users_select_mail("+mail+")", (err, queryRes) => {
+      db.query("CALL sp_medebes_users_select_mail('"+mail+"')", (err, queryRes) => {
         if (err) {
             console.log(err)
 
