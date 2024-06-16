@@ -48,7 +48,7 @@ app.post("/getUserByName", (req, res) => {
                 console.log(err)
 
             } else {
-                res.send(queryRes.data[0])
+                res.send(queryRes)
             }
         })
     }
@@ -63,7 +63,7 @@ app.post("/getUserByMail", (req, res) => {
             console.log(err)
 
         } else {
-            res.send(queryRes.data[0])
+            res.send(queryRes)
         }
       })  
     }
