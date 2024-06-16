@@ -34,7 +34,7 @@ app.get("/getUsers", (req, res) => {
             console.log(err)
 
         } else {
-           res.send(queryRes.data[0]) 
+           res.send(queryRes) 
         }  
     })
 })
