@@ -39,6 +39,21 @@ app.get("/getUsers", (req, res) => {
     })
 })
 
+app.post("/getUserByName", (req, res) => {
+    const name = req.body.name
+
+    if (name) {
+        db.query("CALL sp_medebes_users_select_name(?)", [name], (err, queryRes) => {
+            if (err) {
+                console.log(err)
+
+            } else {
+                res.send(queryRes.data[0])
+            }
+        })
+    }
+})
+
 app.post("/getUserByMail", (req, res) => {
     const mail = req.body.mail
 
