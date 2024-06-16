@@ -39,13 +39,13 @@ app.get("/getUsers", (req, res) => {
     })
 })
 
-app.get("/getUserByMail", (req, res) => {
+app.get("/getUserByMail", async (req, res) => {
     const mail = req.body.mail
 
     console.log(mail)
 
     if (mail) {
-      db.query("CALL sp_medebes_users_select_mail(?)", [mail], (err, queryRes) => {
+    db.query("CALL sp_medebes_users_select_mail(?)", [mail], (err, queryRes) => {
         if (err) {
             console.log(err)
 
