@@ -34,7 +34,7 @@ app.get("/getUsers", (req, res) => {
             console.log(err)
 
         } else {
-           res.send(queryRes[0]) 
+           res.send(queryRes.data[0]) 
         }  
     })
 })
@@ -42,15 +42,13 @@ app.get("/getUsers", (req, res) => {
 app.post("/getUserByMail", (req, res) => {
     const mail = req.body.mail
 
-    console.log(mail)
-
     if (mail) {
     db.query("CALL sp_medebes_users_select_mail(?)", [mail], (err, queryRes) => {
         if (err) {
             console.log(err)
 
         } else {
-            res.send(queryRes)
+            res.send(queryRes.data[0])
         }
       })  
     }
