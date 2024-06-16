@@ -44,11 +44,11 @@ app.get("/getUserByMail", (req, res) => {
 
     if (mail) {
       db.query("CALL sp_medebes_users_select_mail(?)", [mail], (err, queryRes) => {
+        console.log("Desde api")
         if (err) {
             console.log(err)
 
         } else {
-            console.log("Desde api")
             res.send(queryRes[0])
         }
       })  
