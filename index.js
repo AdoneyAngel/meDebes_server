@@ -42,6 +42,8 @@ app.get("/getUsers", (req, res) => {
 app.get("/getUserByMail", (req, res) => {
     const mail = req.body.mail
 
+    console.log("llamado")
+
     if (mail) {
       db.query("CALL sp_medebes_users_select_mail("+mail+")", (err, queryRes) => {
         if (err) {
