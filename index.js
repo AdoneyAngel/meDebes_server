@@ -105,8 +105,9 @@ app.post("/login", (req, res) => {
 
             } else if (queryRes) {
                 console.log("respuesta de la query: ")
+
                 queryRes.forEach(resItem => {
-                    console.log(resItem.name)
+                    console.log(resItem)
                 })
 
                 if (queryRes[0].length > 0) {
