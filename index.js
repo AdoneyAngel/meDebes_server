@@ -97,6 +97,8 @@ app.post("/createUser", async (req, res) => {
 app.get("/login", (req, res) => {
     const {mail, password} = req.query
 
+    console.log("data: " + mail + " " + password)
+
     if (mail, password) {
         db.query("CALL sp_medebes_users_select_mail(?)", [mail], async (err, queryRes) => {
             if (err) {
