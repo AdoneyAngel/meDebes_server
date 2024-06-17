@@ -104,11 +104,17 @@ app.post("/login", (req, res) => {
                 console.log(err)
 
             } else if (queryRes) {
-                console.log("respuesta de la query: " + queryRes)
-                const match = await compareEncrypt(queryRes[0].password, password)
+                console.log("respuesta de la query: ")
+                console.log(queryRes)
 
-                if (match) {
-                    res.send(true)
+                if (queryRes[0].length > 0) {
+                    const match = await compareEncrypt(queryRes[0].password, password)
+                    if (match) {
+                        res.send(true)
+
+                    } else {
+                        res.send(false)
+                    }     
 
                 } else {
                     res.send(false)
