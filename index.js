@@ -79,6 +79,8 @@ app.post("/createUser", async (req, res) => {
     if (name && mail && password) {
         const passwordEncrypted = await genEncrypt(password)
 
+        console.log("Hash generado: " + passwordEncrypted)
+
         db.query("CALL sp_medebes_users_insert(?,?,?)", [name, mail, passwordEncrypted], (err, queryRes) => {
             if (err) {
                 console.log(err)
