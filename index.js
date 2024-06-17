@@ -116,6 +116,10 @@ app.get("/login", (req, res) => {
                 res.send(false)
             }
         })
+
+    } else {
+        console.log("without mail & password")
+        res.send(false)
     }
 })
 
