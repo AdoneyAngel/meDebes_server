@@ -94,7 +94,7 @@ app.post("/createUser", async (req, res) => {
     }
 })
 
-app.post("/login", (req, res) => {
+app.post("/login", async (req, res) => {
     const mail = req.body.mail
     const password = req.body.password
 
@@ -106,11 +106,8 @@ app.post("/login", (req, res) => {
             } else if (queryRes) {
                 console.log("respuesta de la query: ")
 
-                queryRes.forEach(resItem => {
-                    const {name} = resItem
-
-                    console.log(name)
-                })
+                console.log(queryRes)
+                console.log(queryRes[0].name)
 
                 if (queryRes[0].length > 0) {
                     const match = await compareEncrypt(queryRes[0].password, password)
