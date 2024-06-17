@@ -30,8 +30,6 @@ app.listen(3001, (err, res) => {
 //METHODS
 
 app.get("/getUsers", (req, res) => {
-    db.connect()
-
     db.query("CALL sp_medebes_users_select()", (err, queryRes) => {
         if (err) {
             console.log(err)
@@ -39,8 +37,6 @@ app.get("/getUsers", (req, res) => {
         } else {
            res.send(queryRes) 
         }  
-
-        db.end()
     })
 })
 
@@ -48,8 +44,6 @@ app.post("/getUserByName", (req, res) => {
     const name = req.body.name
 
     if (name) {
-        db.connect()
-        
         db.query("CALL sp_medebes_users_select_name(?)", [name], (err, queryRes) => {
             if (err) {
                 console.log(err)
@@ -57,14 +51,11 @@ app.post("/getUserByName", (req, res) => {
             } else {
                 res.send(queryRes)
             }
-
-            db.end()
         })
     }
 })
 
 app.post("/getUserByMail", (req, res) => {
-    db.connect()
     const mail = req.body.mail
 
     if (mail) {
@@ -75,15 +66,12 @@ app.post("/getUserByMail", (req, res) => {
         } else {
             res.send(queryRes)
         }
-
-        db.end()
       })  
     }
     
 })
 
 app.post("/createUser", async (req, res) => {
-    db.connect()
     const name = req.body.name
     const mail = req.body.mail
     const password = req.body.password
@@ -101,14 +89,10 @@ app.post("/createUser", async (req, res) => {
             } else {
                 res.send(true)
             }
-
-            db.end()
         })
 
     } else {
         res.send(false)
-
-        db.end()
     }
 })
 
@@ -117,7 +101,6 @@ app.post("/login", async (req, res) => {
     const password = req.body.password
 
     if (mail, password) {
-        db.connect()
         db.query("CALL sp_medebes_users_select_mail(?)", [mail], async (err, queryRes) => {
             if (err) {
                 console.log(err)
@@ -140,8 +123,6 @@ app.post("/login", async (req, res) => {
             } else {
                 res.send(false)
             }
-
-            db.end()
         })
 
     } else {
