@@ -107,10 +107,6 @@ app.post("/login", async (req, res) => {
                 if (queryRes[0].length > 0) {
                     const match = await compareEncrypt(queryRes[0][0].password, password)
 
-                    console.log("escrito: " + password)
-                    console.log("Original: " + queryRes[0][0].password)
-                    console.log("match: " + match)
-
                     if (match) {
                         res.send(true)
 
@@ -163,6 +159,10 @@ const genEncrypt = async (txt) => {
 
 const compareEncrypt = async (hash, text) => {
     const match = await bcrypt.compare(text, hash)
-    
+
+    console.log("hasOriginal: " + hash)
+    console.log("texto: " + text)
+    console.log("match: " + match)
+
     return match
 } 
