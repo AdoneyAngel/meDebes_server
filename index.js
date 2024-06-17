@@ -162,17 +162,7 @@ const genEncrypt = async (txt) => {
 }
 
 const compareEncrypt = async (hash, text) => {
-    let match = false
-
-    bcrypt.compare(text, hash, (err, isMatch) => {
-        if (err) {
-            console.log(err)
-
-        } else {
-            console.log("compare: " + isMatch)
-            match = isMatch
-        }
-    })
-
+    const match = await bcrypt.compare(text, hash)
+    
     return match
 } 
