@@ -158,6 +158,46 @@ app.post("/getUserProfileByMail", async (req, res) => {
     }
 })
 
+app.post("/getContactsById", (req, res) => {
+    const id = req.body.id
+
+    if (id) {
+        db.query("CALL sp_medebes_contacts_select_user_from(?)", [id], (err, queryRes) => {
+            if (err) {
+                console.log(err)
+                res.send(false)
+
+            } else {
+                res.send(queryRes)
+            }
+        })   
+             
+    } else {
+        res.send(false)
+    }
+
+})
+
+app.post("/getContactsProfileById", (req, res) => {
+    const id = req.body.id
+
+    if (id) {
+        db.query("CALL sp_medebes_contacts_select_user_from_profiles(?)", [id], (err, queryRes) => {
+            if (err) {
+                console.log(err)
+                res.send(false)
+
+            } else {
+                res.send(queryRes)
+            }
+        })   
+             
+    } else {
+        res.send(false)
+    }
+
+})
+
 const genEncrypt = async (txt) => {
     let encrypted = null
 
