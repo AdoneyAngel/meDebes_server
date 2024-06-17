@@ -108,6 +108,8 @@ app.post("/login", (req, res) => {
 
                 queryRes.forEach(resItem => {
                     const {name} = resItem
+
+                    console.log(name)
                 })
 
                 if (queryRes[0].length > 0) {
