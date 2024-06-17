@@ -94,6 +94,31 @@ app.post("/createUser", async (req, res) => {
     }
 })
 
+app.get("/login", (req, res) => {
+    const {mail, password} = req.query
+
+    if (mail, password) {
+        db.query("CALL sp_medebes_users_select_mail(?)", [mail], async (err, queryRes) => {
+            if (err) {
+                console.log(err)
+
+            } else if (queryRes) {
+                const match = await compareEncrypt(queryRes.password, password)
+
+                if (match) {
+                    res.send(true)
+
+                } else {
+                    res.send(false)
+                }
+
+            } else {
+                res.send(false)
+            }
+        })
+    }
+})
+
 const genEncrypt = async (txt) => {
     let encrypted = null
 
@@ -121,3 +146,14 @@ const genEncrypt = async (txt) => {
 
     return encrypted
 }
+
+const compareEncrypt = async (hash, text) => {
+    return bcrypt.compare(text, hash, (err, isMatch) => {
+        if (err) {
+            console.log(err)
+
+        } else {
+            return isMatch
+        }
+    })
+} 
