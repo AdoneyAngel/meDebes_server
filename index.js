@@ -3,6 +3,7 @@ require("dotenv").config()
 const mysql = require("mysql")
 const express = require("express")
 const cors = require("cors")
+const bcrypt = require("bcrypt")
 
 const db = mysql.createConnection({
     host: process.env.DB_HOST,
@@ -69,3 +70,54 @@ app.post("/getUserByMail", (req, res) => {
     }
     
 })
+
+app.post("/createUser", async (req, res) => {
+    const name = req.body.name
+    const mail = req.body.mail
+    const password = req.body.password
+
+    if (name && mail && password) {
+        const passwordEncrypted = await genEncrypt(password)
+
+        db.query("sp_medebes_users_insert(?,?,?)", [name, mail, password], (err, queryRes) => {
+            if (err) {
+                console.log(err)
+                res.send(false)
+
+            } else {
+                res.send(true)
+            }
+        })
+
+    } else {
+        res.send(false)
+    }
+})
+
+const genEncrypt = async (txt) => {
+    let encrypted = null
+
+    await bcrypt.genSalt(10).then(async (salt, err) => {
+        if (err) {
+            console.log(err)
+
+        } else {
+
+            //Se genera el hash
+
+            await bcrypt.hash(password, salt, null).then((hash, err) => {
+
+                if (err) {
+                    console.log(err)
+
+                } else {
+                    encrypted = hash
+                }
+
+            })
+
+        }
+    })
+
+    return encrypted
+}
