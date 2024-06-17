@@ -131,6 +131,30 @@ app.post("/login", async (req, res) => {
     }
 })
 
+app.post("/getUserProfileByMail", async (req, res) => {
+    const mail = req.body.mail
+
+    if (mail) {
+        db.query("CALL sp_medebes_users_select_mail(?)", [mail], async (err, queryRes) => {
+            if (err) {
+                console.log(err)
+
+            } else if (queryRes) {
+                if (queryRes) {
+                    const profile = {
+                        name: queryRes[0][0].name,
+                        mail: queryRes[0][0].mail
+                    }
+
+                    res.send(profile)
+                }
+            } else {
+                res.send(false)
+            }
+        })
+    }
+})
+
 const genEncrypt = async (txt) => {
     let encrypted = null
 
