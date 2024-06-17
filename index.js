@@ -105,7 +105,7 @@ const genEncrypt = async (txt) => {
 
             //Se genera el hash
 
-            await bcrypt.hash(password, salt, null).then((hash, err) => {
+            await bcrypt.hash(txt, salt, null).then((hash, err) => {
 
                 if (err) {
                     console.log(err)
