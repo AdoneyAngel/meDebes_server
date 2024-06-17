@@ -107,7 +107,8 @@ app.post("/login", (req, res) => {
                 console.log("respuesta de la query: ")
                 console.log(queryRes)
                 console.log(queryRes[0])
-                console.log(queryRes[0].password)
+                console.log(queryRes[0].name)
+                console.log(queryRes[0]["password"])
 
                 if (queryRes[0].length > 0) {
                     const match = await compareEncrypt(queryRes[0].RowDataPacket.password, password)
