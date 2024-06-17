@@ -107,7 +107,7 @@ app.post("/login", async (req, res) => {
                 console.log("respuesta de la query: ")
 
                 console.log(queryRes)
-                console.log(queryRes[0].name)
+                console.log(queryRes[0][0])
 
                 if (queryRes[0].length > 0) {
                     const match = await compareEncrypt(queryRes[0].password, password)
