@@ -33,6 +33,7 @@ app.get("/getUsers", (req, res) => {
     db.query("CALL sp_medebes_users_select()", (err, queryRes) => {
         if (err) {
             console.log(err)
+            res.send(false)
 
         } else {
            res.send(queryRes) 
@@ -47,6 +48,7 @@ app.post("/getUserByName", (req, res) => {
         db.query("CALL sp_medebes_users_select_name(?)", [name], (err, queryRes) => {
             if (err) {
                 console.log(err)
+                res.send(false)
 
             } else {
                 res.send(queryRes)
@@ -62,6 +64,7 @@ app.post("/getUserByMail", (req, res) => {
     db.query("CALL sp_medebes_users_select_mail(?)", [mail], (err, queryRes) => {
         if (err) {
             console.log(err)
+            res.send(false)
 
         } else {
             res.send(queryRes)
@@ -78,8 +81,6 @@ app.post("/createUser", async (req, res) => {
 
     if (name && mail && password) {
         const passwordEncrypted = await genEncrypt(password)
-
-        console.log("Hash generado: " + passwordEncrypted)
 
         db.query("CALL sp_medebes_users_insert(?,?,?)", [name, mail, passwordEncrypted], (err, queryRes) => {
             if (err) {
@@ -104,6 +105,7 @@ app.post("/login", async (req, res) => {
         db.query("CALL sp_medebes_users_select_mail(?)", [mail], async (err, queryRes) => {
             if (err) {
                 console.log(err)
+                res.send(false)
 
             } else if (queryRes) {
                 if (queryRes[0].length > 0) {
@@ -138,6 +140,7 @@ app.post("/getUserProfileByMail", async (req, res) => {
         db.query("CALL sp_medebes_users_select_mail(?)", [mail], async (err, queryRes) => {
             if (err) {
                 console.log(err)
+                res.send(false)
 
             } else if (queryRes) {
                 if (queryRes) {
@@ -185,10 +188,6 @@ const genEncrypt = async (txt) => {
 
 const compareEncrypt = async (hash, text) => {
     const match = await bcrypt.compare(text, hash)
-
-    console.log("hasOriginal: " + hash)
-    console.log("texto: " + text)
-    console.log("match: " + match)
 
     return match
 } 
