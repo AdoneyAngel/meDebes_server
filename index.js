@@ -94,8 +94,9 @@ app.post("/createUser", async (req, res) => {
     }
 })
 
-app.get("/login", (req, res) => {
-    const {mail, password} = req.query
+app.post("/login", (req, res) => {
+    const mail = req.body.mail
+    const password = req.body.password
 
     console.log("data: " + mail + " " + password)
 
