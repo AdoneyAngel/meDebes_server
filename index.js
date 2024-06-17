@@ -98,15 +98,14 @@ app.post("/login", (req, res) => {
     const mail = req.body.mail
     const password = req.body.password
 
-    console.log("data: " + mail + " " + password)
-
     if (mail, password) {
         db.query("CALL sp_medebes_users_select_mail(?)", [mail], async (err, queryRes) => {
             if (err) {
                 console.log(err)
 
             } else if (queryRes) {
-                const match = await compareEncrypt(queryRes.password, password)
+                console.log(queryRes)
+                const match = await compareEncrypt(queryRes.data[0].password, password)
 
                 if (match) {
                     res.send(true)
