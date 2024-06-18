@@ -198,6 +198,26 @@ app.post("/getContactsProfileById", (req, res) => {
 
 })
 
+app.post("/getUserByInfo", (req, res) => {
+    const info = req.body.info
+
+    if (info) {
+        db.query("CALL sp_medebes_users_select_mail_or_name(?)", [info], (err, queryRes) => {
+            if (err) {
+                console.log(err)
+                res.send(false)
+
+            } else {
+                res.send(queryRes)
+
+            }
+        })
+
+    } else {
+        res.send(false)
+    }
+})
+
 const genEncrypt = async (txt) => {
     let encrypted = null
 
