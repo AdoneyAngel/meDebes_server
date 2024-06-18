@@ -312,6 +312,28 @@ app.post("/deleteContact", (req, res) => {
     }
 })
 
+app.post("/renameContact", (req, res) => {
+    const user_from = req.body.id_from
+    const user_to = req.body.id_to
+    const nickname = req.body.nickname
+
+    if (user_from && user_to && nickname) {
+        db.query("CALL sp_medebes_contacts_rename(?,?,?)", [user_from, user_to, nickname], (err, queryRes) => {
+            if (err) {
+                console.log(res)
+                res.send(false)
+
+            } else {
+                res.send(true)
+            }
+        })
+
+    } else {
+        console.log("Without data")
+        res.send(false)
+    }
+})
+
 const genEncrypt = async (txt) => {
     let encrypted = null
 
