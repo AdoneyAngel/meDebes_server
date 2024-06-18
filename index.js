@@ -158,6 +158,63 @@ app.post("/getUserProfileByMail", async (req, res) => {
     }
 })
 
+app.post("/getUserProfile", async (req, res) => {
+    const id = req.body.id
+
+    if (id) {
+        db.query("CALL sp_medebes_users_select_id(?)", [id], async (err, queryRes) => {
+            if (err) {
+                console.log(err)
+                res.send(false)
+
+            } else if (queryRes) {
+                if (queryRes) {
+                    const profile = {
+                        name: queryRes[0][0].name,
+                        mail: queryRes[0][0].mail
+                    }
+
+                    res.send(profile)
+                }
+            } else {
+                res.send(false)
+            }
+        })
+    }
+})
+
+app.post("/getContactProfile", async (req, res) => {
+    const id_user_from = req.body.user_from
+    const id_user_to = req.body.user_to
+    
+    if (id_user_from && id_user_to) {
+        db.query("CALL sp_medebes_contacts_select_user_to_profile(?, ?)", [id_user_from, id_user_to], async (err, queryRes) => {
+            if (err) {
+                console.log(err)
+                res.send(false)
+
+            } else if (queryRes) {
+                if (queryRes) {
+                    const profile = {
+                        id: queryRes[0][0].id,
+                        name: queryRes[0][0].name,
+                        mail: queryRes[0][0].mail,
+                        nickname: queryRes[0][0].nickname
+                    }
+
+                    res.send(profile)
+                }
+            } else {
+                res.send(false)
+            }
+        })
+
+    } else {
+        console.log("Without data")
+        res.send(false)
+    }
+})
+
 app.post("/getContactsById", (req, res) => {
     const id = req.body.id
 
@@ -215,6 +272,43 @@ app.post("/getUserByInfo", (req, res) => {
 
     } else {
         res.send(false)
+    }
+})
+
+app.post("/addContact", (req, res) => {
+    const id_from = req.body.id_from
+    const id_to = req.body.id_to
+    const nickname = req.body.nickname
+
+    if (id_from && id_to && nickname) {
+        db.query("CALL sp_medebes_contacts_insert(?,?,?)", [id_from, id_to, nickname], (err, queryRes) => {
+            if (err) {
+                res.send(false)
+
+            } else {
+                res.send(true)
+            }
+        })
+
+    } else {
+        res.send(false)
+    }
+})
+
+app.post("/deleteContact", (req, res) => {
+    const user_from = req.body.id_from
+    const user_to = req.body.id_to
+
+    if (user_from && user_to) {
+        db.query("CALL sp_medebes_contacts_delete(?,?)", [user_from, user_to], (err, queryRes) => {
+            if (err) {
+                console.log(err)
+                res.send(false)
+
+            } else {
+                res.send(true)
+            }
+        })
     }
 })
 
