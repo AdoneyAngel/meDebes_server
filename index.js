@@ -54,6 +54,10 @@ app.post("/getUserByName", (req, res) => {
                 res.send(queryRes)
             }
         })
+
+    } else {
+        console.log("Without data getUserByName")
+        res.send(false)
     }
 })
 
@@ -70,6 +74,10 @@ app.post("/getUserByMail", (req, res) => {
             res.send(queryRes)
         }
       })  
+
+    } else {
+        console.log("Without data getUserByMail")
+        res.send(false)
     }
     
 })
@@ -93,6 +101,7 @@ app.post("/createUser", async (req, res) => {
         })
 
     } else {
+        console.log("Without data createUser")
         res.send(false)
     }
 })
@@ -128,7 +137,7 @@ app.post("/login", async (req, res) => {
         })
 
     } else {
-        console.log("without mail & password")
+        console.log("without login")
         res.send(false)
     }
 })
@@ -152,6 +161,7 @@ app.post("/getUserProfileByMail", async (req, res) => {
                     res.send(profile)
                 }
             } else {
+                console.log("Without data getUserProfileByMail")
                 res.send(false)
             }
         })
@@ -177,6 +187,7 @@ app.post("/getUserProfile", async (req, res) => {
                     res.send(profile)
                 }
             } else {
+                console.log("Without data getUserProfile")
                 res.send(false)
             }
         })
@@ -210,7 +221,7 @@ app.post("/getContactProfile", async (req, res) => {
         })
 
     } else {
-        console.log("Without data")
+        console.log("Without data getContactProfile")
         res.send(false)
     }
 })
@@ -230,6 +241,7 @@ app.post("/getContactsById", (req, res) => {
         })   
              
     } else {
+        console.log("Without data getContactsById")
         res.send(false)
     }
 
@@ -250,6 +262,7 @@ app.post("/getContactsProfileById", (req, res) => {
         })   
              
     } else {
+        console.log("Without data getContactsProfileById")
         res.send(false)
     }
 
@@ -271,6 +284,7 @@ app.post("/getUserByInfo", (req, res) => {
         })
 
     } else {
+        console.log("Without data getUserByInfo")
         res.send(false)
     }
 })
@@ -291,6 +305,7 @@ app.post("/addContact", (req, res) => {
         })
 
     } else {
+        console.log("Without data addContact")
         res.send(false)
     }
 })
@@ -309,6 +324,9 @@ app.post("/deleteContact", (req, res) => {
                 res.send(true)
             }
         })
+
+    } else {
+        console.log("Without data deleteContact")
     }
 })
 
@@ -329,7 +347,131 @@ app.post("/renameContact", (req, res) => {
         })
 
     } else {
-        console.log("Without data")
+        console.log("Without data renameContact")
+        res.send(false)
+    }
+})
+
+app.post("/getTotalReturn_to", (req, res) => {
+    const id = req.body.id
+
+    if (id) {
+        db.query("CALL sp_medebes_returns_getTotalReturn_to(?)", [id], (err, queryRes) => {
+            if (err) {
+                console.log(err)
+                res.send(false)
+
+            } else {
+                res.send(queryRes)
+            }
+        })
+
+    } else {
+        console.log("Without data getTotalReturn_to")
+        res.send(false)
+    }
+})
+
+app.post("/getTotalReturn_from", (req, res) => {
+    const id = req.body.id
+
+    if (id) {
+        db.query("CALL sp_medebes_returns_getTotalReturn_from(?)", [id], (err, queryRes) => {
+            if (err) {
+                console.log(err)
+                res.send(false)
+
+            } else {
+                res.send(queryRes)
+            }
+        })
+
+    } else {
+        console.log("Without data getTotalReturn_to")
+        res.send(false)
+    }
+})
+
+app.post("/getReturnsData_to", (req, res) => {
+    const user_id = req.body.id
+
+    if (user_id) {
+        db.query("CALL sp_medebes_returns_select_returnsData_to(?)", [user_id], (err, queryRes) => {
+            if (err) {
+                console.log(err)
+                res.send(false)
+
+            } else {
+                res.send(queryRes)
+
+            }
+            
+        })
+
+    } else {
+        console.log("Without data getReturnsData")
+        res.send(false)
+    }
+})
+
+app.post("/getReturnsData_from", (req, res) => {
+    const user_id = req.body.id
+
+    if (user_id) {
+        db.query("CALL sp_medebes_returns_select_returnsData_from(?)", [user_id], (err, queryRes) => {
+            if (err) {
+                console.log(err)
+                res.send(false)
+
+            } else {
+                res.send(queryRes)
+
+            }
+            
+        })
+
+    } else {
+        console.log("Without data getReturnsData")
+        res.send(false)
+    }
+})
+
+app.post("/userHaveNotification", (req, res) => {
+    const user_id = req.body.id
+
+    if (user_id) {
+        db.query("SELECT sp_medebes_users_haveNotifications(?) AS have", [user_id], (err, queryRes) => {
+            if (err) {
+                console.log(err)
+                res.send(false)
+
+            } else {
+                res.send(queryRes)
+            }
+        })
+
+    } else {
+        console.log("Without data userHaveNotification")
+        res.send(false)
+    }
+})
+
+app.post("/getCretionRequests_to", (req, res) => {
+    const user_id = req.body.id
+
+    if (user_id) {
+        db.query("CALL sp_medebes_create_return_request_select_waiting_user_to(?)", [user_id], (err, queryRes) => {
+            if (err) {
+                console.log(err)
+                res.send(false)
+                
+            } else {
+                res.send(queryRes)
+            }
+        })
+
+    } else {
+        console.log("Without data getCretionRequests_to")
         res.send(false)
     }
 })
