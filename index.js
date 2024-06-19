@@ -456,7 +456,7 @@ app.post("/userHaveNotification", (req, res) => {
     }
 })
 
-app.post("/getCretionRequests_to", (req, res) => {
+app.post("/getCreationRequests_to", (req, res) => {
     const user_id = req.body.id
 
     if (user_id) {
@@ -472,6 +472,126 @@ app.post("/getCretionRequests_to", (req, res) => {
 
     } else {
         console.log("Without data getCretionRequests_to")
+        res.send(false)
+    }
+})
+
+app.post("/getHistoryRequests_to", (req, res) => {
+    const user_id = req.body.id
+
+    if (user_id) {
+        db.query("CALL sp_medebes_payment_history_select_waiting_user_to(?)", [user_id], (err, queryRes) => {
+            if (err) {
+                console.log(err)
+                res.send(false)
+                
+            } else {
+                res.send(queryRes)
+            }
+        })
+
+    } else {
+        console.log("Without data getCretionRequests_to")
+        res.send(false)
+    }
+})
+
+app.post("/getFinishRequests_to", (req, res) => {
+    const user_id = req.body.id
+
+    if (user_id) {
+        db.query("CALL sp_medebes_finish_return_request_select_waiting_user_to(?)", [user_id], (err, queryRes) => {
+            if (err) {
+                console.log(err)
+                res.send(false)
+                
+            } else {
+                res.send(queryRes)
+            }
+        })
+
+    } else {
+        console.log("Without data getCretionRequests_to")
+        res.send(false)
+    }
+})
+
+app.post("/acceptCreation", (req, res) => {
+    const id_creation = req.body.id
+
+    if (id_creation) {
+        db.query("CALL sp_medebes_create_return_requests_accept(?)", [id_creation], (err, queryRes) => {
+            if (err) {
+                console.log(err)
+                res.send(false)
+
+            } else {
+                res.send(true)
+            }
+        })
+
+    } else {
+        console.log("Without data acceptCreation")
+        res.send(false)
+    }
+})
+
+app.post("/acceptHistory", (req, res) => {
+    const id_history = req.body.id
+
+    if (id_history) {
+        db.query("CALL sp_medebes_payment_history_accept(?)", [id_history], (err, queryRes) => {
+            if (err) {
+                console.log(err)
+                res.send(false)
+
+            } else {
+                res.send(true)
+            }
+        })
+
+    } else {
+        console.log("Without data acceptHistory")
+        res.send(false)
+    }
+})
+
+app.post("/rejectHistory", (req, res) => {
+    const id_history = req.body.id
+
+    if (id_history) {
+        db.query("CALL sp_medebes_payment_history_reject(?)", [id_history], (err, queryRes) => {
+            if (err) {
+                console.log(err)
+                res.send(false)
+
+            } else {
+                res.send(true)
+            }
+        })
+
+    } else {
+        console.log("Without data acceptHistory")
+        res.send(false)
+    }
+})
+
+app.post("/rejectCreation", (req, res) => {
+    const id_creation = req.body.id
+
+    if (id_creation) {
+        db.query("CALL sp_medebes_create_return_requests_reject(?)", [id_creation], (err, queryRes) => {
+            if (err) {
+                console.log(err)
+                res.send(false)
+
+            } else {
+                res.send(true)
+            }
+        })
+
+    } else {
+        console.log("Without data acceptCreation")
         res.send(false)
     }
 })
