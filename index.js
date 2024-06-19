@@ -596,6 +596,49 @@ app.post("/rejectCreation", (req, res) => {
     }
 })
 
+app.post("/createCreationRequest", (req, res) => {
+    const user_from = req.body.user_from
+    const user_to = req.body.user_to
+    const concept = req.body.concept
+    const money = req.body.money
+
+    if (user_from && user_to && concept && money) {
+        db.query("CALL sp_medebes_create_return_requests_insert(?, ?, ?, ?)", [user_from, user_to, money, concept], (err, queryRes) => {
+            if (err) {
+                console.log(err)
+                res.send(false)
+
+            } else {
+                res.send(true)
+            }
+        })
+        
+    } else {
+        console.log("Without data createCreationRequest")
+        res.send(false)
+    }
+})
+
+app.post("/getReturnData", (req, res) => {
+    const return_id = req.body.id
+
+    if (return_id) {
+        db.query("CALL sp_medebes_returns_select_data(?)", [return_id], (err, queryRes) => {
+            if (err) {
+                console.log(err)
+                res.send(false)
+
+            } else {
+                res.send(queryRes)
+            }
+        })
+
+    } else {
+        console.log("Without data getReturnData")
+        res.send(false)
+    }
+})
+
 const genEncrypt = async (txt) => {
     let encrypted = null
 
