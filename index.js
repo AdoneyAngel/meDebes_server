@@ -596,6 +596,46 @@ app.post("/rejectCreation", (req, res) => {
     }
 })
 
+app.post("/acceptFinish", (req, res) => {
+    const id_return = req.body.id
+
+    if (id_return) {
+        db.query("CALL sp_medebes_finish_return_requests_accept(?)", [id_return], (err, queryRes) => {
+            if (err) {
+                console.log(err)
+                res.send(false)
+
+            } else {
+                res.send(true)
+            }
+        })
+
+    } else {
+        console.log("Without data acceptHistory")
+        res.send(false)
+    }
+})
+
+app.post("/rejectFinish", (req, res) => {
+    const id_return = req.body.id
+
+    if (id_return) {
+        db.query("CALL sp_medebes_finish_return_requests_reject(?)", [id_return], (err, queryRes) => {
+            if (err) {
+                console.log(err)
+                res.send(false)
+
+            } else {
+                res.send(true)
+            }
+        })
+
+    } else {
+        console.log("Without data acceptHistory")
+        res.send(false)
+    }
+})
+
 app.post("/createCreationRequest", (req, res) => {
     const user_from = req.body.user_from
     const user_to = req.body.user_to
@@ -655,6 +695,49 @@ app.post("/getReturnHistory", (req, res) => {
 
     } else {
         console.log("Without data getReturnHistory")
+        res.send(false)
+    }
+})
+
+app.post("/createPaymentRequest", (req, res) => {
+    const id_return = req.body.id
+    const id_user_from = req.body.user_from
+    const amount = req.body.amount
+
+    if (id_return && id_user_from && amount) {
+        db.query("CALL sp_medebes_payment_history_insert(?,?,?)", [id_return, id_user_from, amount], (err, queryRes) => {
+            if (err) {
+                console.log(err)
+                res.send(false)
+
+            } else {
+                res.send(true)
+            }
+        })
+
+    } else {
+        console.log("Without data createPaymentRequest")
+        res.send(false)
+    }
+})
+
+app.post("/createFinishRequest", (req, res) => {
+    const id_return = req.body.id
+    const id_user_from = req.body.user_from
+
+    if (id_return && id_user_from) {
+        db.query("CALL sp_medebes_finish_return_request_insert(?,?)", [id_return, id_user_from], (err, queryRes) => {
+            if (err) {
+                console.log(err)
+                res.send(false)
+
+            } else {
+                res.send(true)
+            }
+        })
+
+    } else {
+        console.log("Without data createFinishRequest")
         res.send(false)
     }
 })
