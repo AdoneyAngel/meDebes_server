@@ -204,7 +204,7 @@ app.post("/getContactProfile", async (req, res) => {
                 console.log(err)
                 res.send(false)
 
-            } else if (queryRes) {
+            } else if (queryRes[0].length) {
                 if (queryRes) {
                     const profile = {
                         id: queryRes[0][0].id,
@@ -635,6 +635,26 @@ app.post("/getReturnData", (req, res) => {
 
     } else {
         console.log("Without data getReturnData")
+        res.send(false)
+    }
+})
+
+app.post("/getReturnHistory", (req, res) => {
+    const  return_id = req.body.id
+
+    if (return_id) {
+        db.query("CALL sp_medebes_payment_history_select_return(?)", [return_id], (err, queryRes) => {
+            if (err) {
+                console.log(err)
+                res.send(false)
+
+            } else {
+                res.send(queryRes)
+            }
+        })
+
+    } else {
+        console.log("Without data getReturnHistory")
         res.send(false)
     }
 })
