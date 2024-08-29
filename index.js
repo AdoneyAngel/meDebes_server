@@ -778,6 +778,93 @@ app.post("/createFinishRequest", (req, res) => {
     }
 })
 
+app.post("/createContactRequest", (req, res) => {
+    console.log("Post: createContactRequest")
+
+    const user_id_from = req.body.user_from
+    const user_id_to = req.body.user_to
+    const nickname = req.body.nickname
+
+    if (user_id_from &&  user_id_to && nickname) {
+        db.query("CALL sp_medebes_contact_requests_insert(?,?, ?)", [user_id_from, user_id_to, nickname], (err, queryRes) => {
+            if (err) {
+                console.log(err)
+                res.send(false)
+
+            } else {
+                res.send(true)
+            }
+        })
+
+    } else {
+        console.log("Without data createContactRequest")
+        res.send(false)
+    }
+})
+
+app.post("/getWaitingContactRequest", (req, res) => {
+    console.log("Post: getContactRequests")
+
+    const id_user_to = req.body.user_to
+
+    if (id_user_to) {
+        db.query("CALL sp_medebes_contact_requests_select_waiting_user_to(?)", [id_user_to], (err, queryRes) => {
+            if (err) {
+                console.log("Error getting waiting contact requests: " + err)
+                res.send(false)
+
+            } else {
+                res.send(queryRes)
+            }
+        })
+    }
+})
+
+app.post("/acceptContactRequest", (req, res) => {
+    console.log("Post: acceptContactRequest")
+
+    const id_request = req.body.id
+    const nickname = req.body.nickname
+
+    if (id_request && nickname) {
+        db.query("CALL sp_medebes_contact_requests_accept(?, ?)", [id_request, nickname], (err, queryRes) => {
+            if (err) {
+                console.log(err)
+                res.send(false)
+
+            } else {
+                res.send(true)
+            }
+        })
+
+    } else {
+        console.log("Without data acceptContactRequest")
+        res.send(false)
+    }
+})
+
+app.post("/rejectContactRequest", (req, res) => {
+    console.log("Post: rejectContactRequest")
+
+    const id_request = req.body.id
+
+    if (id_request) {
+        db.query("CALL sp_medebes_contact_requests_reject(?)", [id_request], (err, queryRes) => {
+            if (err) {
+                console.log(err)
+                res.send(false)
+
+            } else {
+                res.send(true)
+            }
+        })
+
+    } else {
+        console.log("Without data rejectContactRequest")
+        res.send(false)
+    }
+})
+
 const genEncrypt = async (txt) => {
     let encrypted = null
 
