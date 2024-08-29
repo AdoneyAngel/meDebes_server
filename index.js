@@ -1,6 +1,6 @@
 require("dotenv").config()
 
-const mysql = require("mysql")
+const mysql = require("mysql2")
 const express = require("express")
 const cors = require("cors")
 const bcrypt = require("bcrypt")
@@ -9,13 +9,16 @@ const db = mysql.createConnection({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
     password: process.env.DB_PASS,
-    database: process.env.DB_NAME
-}, (err) => {
+    database: process.env.DB_NAME,
+    port: process.env.DB_PORT
+})
+
+db.connect((err) => {
     if (err) {
-        console.log(err)
+        console.log("Error while connect to DB: " + err)
 
     } else {
-        console.log("Database conected")
+        console.log("DB connected")
     }
 })
 
@@ -30,6 +33,7 @@ app.listen(3001, (err, res) => {
 //METHODS
 
 app.get("/getUsers", (req, res) => {
+    console.log("Get: getUsers")
     db.query("CALL sp_medebes_users_select()", (err, queryRes) => {
         if (err) {
             console.log(err)
@@ -42,6 +46,7 @@ app.get("/getUsers", (req, res) => {
 })
 
 app.post("/getUserByName", (req, res) => {
+    console.log("Post: getUserByName")
     const name = req.body.name
 
     if (name) {
@@ -62,6 +67,7 @@ app.post("/getUserByName", (req, res) => {
 })
 
 app.post("/getUserByMail", (req, res) => {
+    console.log("Post: getUserByMail")
     const mail = req.body.mail
 
     if (mail) {
@@ -83,6 +89,7 @@ app.post("/getUserByMail", (req, res) => {
 })
 
 app.post("/createUser", async (req, res) => {
+    console.log("Post: createUser")
     const name = req.body.name
     const mail = req.body.mail
     const password = req.body.password
@@ -107,6 +114,7 @@ app.post("/createUser", async (req, res) => {
 })
 
 app.post("/login", async (req, res) => {
+    console.log("Post: login")
     const mail = req.body.mail
     const password = req.body.password
 
@@ -143,6 +151,7 @@ app.post("/login", async (req, res) => {
 })
 
 app.post("/getUserProfileByMail", async (req, res) => {
+    console.log("Post: getUserProfileByMail")
     const mail = req.body.mail
 
     if (mail) {
@@ -169,6 +178,7 @@ app.post("/getUserProfileByMail", async (req, res) => {
 })
 
 app.post("/getUserProfile", async (req, res) => {
+    console.log("Post: getUserProfile")
     const id = req.body.id
 
     if (id) {
@@ -195,6 +205,7 @@ app.post("/getUserProfile", async (req, res) => {
 })
 
 app.post("/getContactProfile", async (req, res) => {
+    console.log("Post: getContactProfile")
     const id_user_from = req.body.user_from
     const id_user_to = req.body.user_to
     
@@ -227,6 +238,7 @@ app.post("/getContactProfile", async (req, res) => {
 })
 
 app.post("/getContactsById", (req, res) => {
+    console.log("Post: getContactsById")
     const id = req.body.id
 
     if (id) {
@@ -248,6 +260,7 @@ app.post("/getContactsById", (req, res) => {
 })
 
 app.post("/getContactsProfileById", (req, res) => {
+    console.log("Post: getContactsProfileById")
     const id = req.body.id
 
     if (id) {
@@ -269,6 +282,7 @@ app.post("/getContactsProfileById", (req, res) => {
 })
 
 app.post("/getUserByInfo", (req, res) => {
+    console.log("Post: getUserByInfo")
     const info = req.body.info
 
     if (info) {
@@ -290,6 +304,7 @@ app.post("/getUserByInfo", (req, res) => {
 })
 
 app.post("/addContact", (req, res) => {
+    console.log("Post: addContact")
     const id_from = req.body.id_from
     const id_to = req.body.id_to
     const nickname = req.body.nickname
@@ -311,6 +326,7 @@ app.post("/addContact", (req, res) => {
 })
 
 app.post("/deleteContact", (req, res) => {
+    console.log("Post: deleteContact")
     const user_from = req.body.id_from
     const user_to = req.body.id_to
 
@@ -331,6 +347,7 @@ app.post("/deleteContact", (req, res) => {
 })
 
 app.post("/renameContact", (req, res) => {
+    console.log("Post: renameContact")
     const user_from = req.body.id_from
     const user_to = req.body.id_to
     const nickname = req.body.nickname
@@ -353,6 +370,7 @@ app.post("/renameContact", (req, res) => {
 })
 
 app.post("/getTotalReturn_to", (req, res) => {
+    console.log("Post: getTotalReturn_to")
     const id = req.body.id
 
     if (id) {
@@ -373,6 +391,7 @@ app.post("/getTotalReturn_to", (req, res) => {
 })
 
 app.post("/getTotalReturn_from", (req, res) => {
+    console.log("Post: getTotalReturn_from")
     const id = req.body.id
 
     if (id) {
@@ -393,6 +412,7 @@ app.post("/getTotalReturn_from", (req, res) => {
 })
 
 app.post("/getReturnsData_to", (req, res) => {
+    console.log("Post: getReturnsData_to")
     const user_id = req.body.id
 
     if (user_id) {
@@ -415,6 +435,7 @@ app.post("/getReturnsData_to", (req, res) => {
 })
 
 app.post("/getReturnsData_from", (req, res) => {
+    console.log("Post: getReturnsData_from")
     const user_id = req.body.id
 
     if (user_id) {
@@ -437,6 +458,7 @@ app.post("/getReturnsData_from", (req, res) => {
 })
 
 app.post("/userHaveNotification", (req, res) => {
+    console.log("Post: userHaveNotification")
     const user_id = req.body.id
 
     if (user_id) {
@@ -457,6 +479,7 @@ app.post("/userHaveNotification", (req, res) => {
 })
 
 app.post("/getCreationRequests_to", (req, res) => {
+    console.log("Post: getCreationRequests_to")
     const user_id = req.body.id
 
     if (user_id) {
@@ -477,6 +500,7 @@ app.post("/getCreationRequests_to", (req, res) => {
 })
 
 app.post("/getHistoryRequests_to", (req, res) => {
+    console.log("Post: getHistoryRequests_to")
     const user_id = req.body.id
 
     if (user_id) {
@@ -497,6 +521,7 @@ app.post("/getHistoryRequests_to", (req, res) => {
 })
 
 app.post("/getFinishRequests_to", (req, res) => {
+    console.log("Post: getFinishRequests_to")
     const user_id = req.body.id
 
     if (user_id) {
@@ -517,6 +542,7 @@ app.post("/getFinishRequests_to", (req, res) => {
 })
 
 app.post("/acceptCreation", (req, res) => {
+    console.log("Post: acceptCreation")
     const id_creation = req.body.id
 
     if (id_creation) {
@@ -537,6 +563,7 @@ app.post("/acceptCreation", (req, res) => {
 })
 
 app.post("/acceptHistory", (req, res) => {
+    console.log("Post: acceptHistory")
     const id_history = req.body.id
 
     if (id_history) {
@@ -557,6 +584,7 @@ app.post("/acceptHistory", (req, res) => {
 })
 
 app.post("/rejectHistory", (req, res) => {
+    console.log("Post: rejectHistory")
     const id_history = req.body.id
 
     if (id_history) {
@@ -577,6 +605,7 @@ app.post("/rejectHistory", (req, res) => {
 })
 
 app.post("/rejectCreation", (req, res) => {
+    console.log("Post: rejectCreation")
     const id_creation = req.body.id
 
     if (id_creation) {
@@ -597,6 +626,7 @@ app.post("/rejectCreation", (req, res) => {
 })
 
 app.post("/acceptFinish", (req, res) => {
+    console.log("Post: acceptFinish")
     const id_return = req.body.id
 
     if (id_return) {
@@ -617,6 +647,7 @@ app.post("/acceptFinish", (req, res) => {
 })
 
 app.post("/rejectFinish", (req, res) => {
+    console.log("Post: rejectFinish")
     const id_return = req.body.id
 
     if (id_return) {
@@ -637,6 +668,7 @@ app.post("/rejectFinish", (req, res) => {
 })
 
 app.post("/createCreationRequest", (req, res) => {
+    console.log("Post: createCreationRequest")
     const user_from = req.body.user_from
     const user_to = req.body.user_to
     const concept = req.body.concept
@@ -660,6 +692,7 @@ app.post("/createCreationRequest", (req, res) => {
 })
 
 app.post("/getReturnData", (req, res) => {
+    console.log("Post: getReturnData")
     const return_id = req.body.id
 
     if (return_id) {
@@ -680,6 +713,7 @@ app.post("/getReturnData", (req, res) => {
 })
 
 app.post("/getReturnHistory", (req, res) => {
+    console.log("Post: getReturnHistory")
     const  return_id = req.body.id
 
     if (return_id) {
@@ -700,6 +734,7 @@ app.post("/getReturnHistory", (req, res) => {
 })
 
 app.post("/createPaymentRequest", (req, res) => {
+    console.log("Post: createPaymentRequest")
     const id_return = req.body.id
     const id_user_from = req.body.user_from
     const amount = req.body.amount
@@ -722,6 +757,7 @@ app.post("/createPaymentRequest", (req, res) => {
 })
 
 app.post("/createFinishRequest", (req, res) => {
+    console.log("Post: createFinishRequest")
     const id_return = req.body.id
     const id_user_from = req.body.user_from
 
