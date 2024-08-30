@@ -478,6 +478,29 @@ app.post("/userHaveNotification", (req, res) => {
     }
 })
 
+app.post("/getAllCreationRequests_user", (req, res) => {
+    console.log("Post: getAllCreationRequests_user")
+    
+    const user_id = req.body.user_id
+
+    if (user_id) {
+        db.query("CALL sp_medebes_create_return_requests_select_user(?)", [user_id], (err, queryRes) => {
+            if (err) {
+                console.log("Error getting all creation request for user")
+                res.send(false)
+
+            } else  {
+                res.send(queryRes)
+            }
+        })    
+
+    } else {
+        res.send(false)
+        console.log("without data getAllCreationRequests_user")
+    }
+
+})
+
 app.post("/getCreationRequests_to", (req, res) => {
     console.log("Post: getCreationRequests_to")
     const user_id = req.body.id
@@ -509,6 +532,49 @@ app.post("/getHistoryRequests_to", (req, res) => {
                 console.log(err)
                 res.send(false)
                 
+            } else {
+                res.send(queryRes)
+            }
+        })
+
+    } else {
+        console.log("Without data getCretionRequests_to")
+        res.send(false)
+    }
+})
+
+app.post("/getAllHistoryRequests_user", (req, res) => {
+    console.log("Post: getAllHistoryRequests_user")
+
+    const user_id = req.body.user_id
+
+    if (user_id) {
+        db.query("CALL sp_medebes_payment_history_select_user(?)", [user_id], (err, queryRes) => {
+            if (err) {
+                console.log("Error getting all history request for user")
+                res.send(false)
+
+            } else {
+                res.send(queryRes)
+            }
+        })
+
+    } else {
+        res.send(false)
+    }
+})
+
+app.post("/getAllFinishRequests_user", (req, res) => {
+    console.log("Post: getAllFinishRequests_user")
+
+    const user_id = req.body.user_id
+
+    if (user_id) {
+        db.query("CALL sp_medebes_finish_return_requests_select_user(?)", [user_id], (err, queryRes) => {
+            if (err) {
+                console.log("Error getting all finish requests for user")
+                res.send(false)
+
             } else {
                 res.send(queryRes)
             }
@@ -691,6 +757,28 @@ app.post("/createCreationRequest", (req, res) => {
     }
 })
 
+app.post("/getAllReturns_user", (req, res) => {
+    console.log("Post: getAllReturns_user")
+
+    const user_id = req.body.user_id
+
+    if (user_id) {
+        db.query("CALL sp_medebes_returns_select_user(?)", [user_id], (err, queryRes) => {
+            if (err) {
+                console.log("Error getting all returns for user")
+                res.send(false)
+
+            } else {
+                res.send(queryRes)
+            }
+        })
+
+    } else {
+        console.log("Without data getAllReturns_user")
+        res.send(false)
+    }
+})
+
 app.post("/getReturnData", (req, res) => {
     console.log("Post: getReturnData")
     const return_id = req.body.id
@@ -774,6 +862,28 @@ app.post("/createFinishRequest", (req, res) => {
 
     } else {
         console.log("Without data createFinishRequest")
+        res.send(false)
+    }
+})
+
+app.post("/getAllContactRequests_user", (req, res) => {
+    console.log("Post: getAllContactRequests")
+
+    const user_id = req.body.user_id
+
+    if (user_id) {
+        db.query("CALL sp_medebes_contact_requests_select_user(?)", [user_id], (err, queryRes) => {
+            if (err) {
+                console.log(err)
+                res.send(false)
+
+            } else {
+                res.send(queryRes)
+            }
+        })
+
+    } else {
+        console.log("Without data getAllContactRequests")
         res.send(false)
     }
 })
