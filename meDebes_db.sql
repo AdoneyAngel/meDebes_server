@@ -255,7 +255,7 @@ UNLOCK TABLES;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` FUNCTION `sp_medebes_contacts_aggregates`(v_user_a VARCHAR(255) , v_user_b VARCHAR(255)) RETURNS tinyint(1)
+CREATE FUNCTION `sp_medebes_contacts_aggregates`(v_user_a VARCHAR(255) , v_user_b VARCHAR(255)) RETURNS tinyint(1)
 BEGIN
 	
     DECLARE a_b INT DEFAULT 0;
@@ -295,7 +295,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` FUNCTION `sp_medebes_contacts_exist`(v_user_from INT, v_user_to INT) RETURNS tinyint(1)
+CREATE FUNCTION `sp_medebes_contacts_exist`(v_user_from INT, v_user_to INT) RETURNS tinyint(1)
 BEGIN
 
 	DECLARE contactId INT DEFAULT -1;
@@ -327,7 +327,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` FUNCTION `sp_medebes_contacts_has_added`(v_user_a VARCHAR(255) , v_user_b VARCHAR(255)) RETURNS tinyint(1)
+CREATE FUNCTION `sp_medebes_contacts_has_added`(v_user_a VARCHAR(255) , v_user_b VARCHAR(255)) RETURNS tinyint(1)
 BEGIN
 	
     DECLARE a_b INT DEFAULT 0;
@@ -361,7 +361,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` FUNCTION `sp_medebes_returns_select_total_byId`(v_id INT) RETURNS decimal(5,2)
+CREATE FUNCTION `sp_medebes_returns_select_total_byId`(v_id INT) RETURNS decimal(5,2)
 BEGIN
 
 	DECLARE totalMoney DECIMAL(5,2) DEFAULT 0;
@@ -396,7 +396,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` FUNCTION `sp_medebes_users_haveNotifications`(v_id INT) RETURNS tinyint(1)
+CREATE FUNCTION `sp_medebes_users_haveNotifications`(v_id INT) RETURNS tinyint(1)
 BEGIN
 
 	DECLARE haveCreationRequest INT DEFAULT 0;
@@ -441,7 +441,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` FUNCTION `sp_medebes_users_login`(v_mail VARCHAR(255), v_password VARCHAR(255)) RETURNS tinyint(1)
+CREATE FUNCTION `sp_medebes_users_login`(v_mail VARCHAR(255), v_password VARCHAR(255)) RETURNS tinyint(1)
 BEGIN
 	DECLARE idFound INT DEFAULT -1;
     
@@ -469,7 +469,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` FUNCTION `sp_medebes_users_select_id_mail`(v_mail VARCHAR(255)) RETURNS int(11)
+CREATE FUNCTION `sp_medebes_users_select_id_mail`(v_mail VARCHAR(255)) RETURNS int(11)
 BEGIN
 
 	DECLARE idFound INT DEFAULT -1;
@@ -494,7 +494,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_medebes_contacts_delete`(IN v_user_from INT, IN v_user_to INT)
+CREATE PROCEDURE `sp_medebes_contacts_delete`(IN v_user_from INT, IN v_user_to INT)
 BEGIN
 
 	DELETE FROM contacts WHERE user_from = v_user_from AND user_to = v_user_to;
@@ -515,7 +515,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_medebes_contacts_insert`(IN v_user_from INT, IN v_user_to INT, IN v_nickname VARCHAR(255) )
+CREATE PROCEDURE `sp_medebes_contacts_insert`(IN v_user_from INT, IN v_user_to INT, IN v_nickname VARCHAR(255) )
 BEGIN
 
 	DECLARE userFromExist INT DEFAULT -1;
@@ -551,7 +551,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_medebes_contacts_rename`(IN v_user_from INT, IN v_user_to INT, IN v_nickname VARCHAR(255))
+CREATE PROCEDURE `sp_medebes_contacts_rename`(IN v_user_from INT, IN v_user_to INT, IN v_nickname VARCHAR(255))
 BEGIN
 	
     UPDATE contacts SET nickname = v_nickname WHERE user_from = v_user_from AND user_to = v_user_to;
@@ -572,7 +572,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_medebes_contacts_select`()
+CREATE PROCEDURE `sp_medebes_contacts_select`()
 BEGIN
 
 	SELECT * FROM contacts;
@@ -593,7 +593,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_medebes_contacts_select_user_from`(IN v_user_from INT)
+CREATE PROCEDURE `sp_medebes_contacts_select_user_from`(IN v_user_from INT)
 BEGIN
 
 	SELECT * FROM contacts WHERE user_from = v_user_from;
@@ -614,7 +614,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_medebes_contacts_select_user_from_profiles`(IN v_user_from INT)
+CREATE PROCEDURE `sp_medebes_contacts_select_user_from_profiles`(IN v_user_from INT)
 BEGIN
 
 	SELECT users.id, users.name, users.mail, contacts.nickname FROM contacts, users WHERE contacts.user_from = v_user_from AND users.id = contacts.user_to;
@@ -635,7 +635,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_medebes_contacts_select_user_to_profile`(IN v_user_from INT, IN v_user_to INT)
+CREATE PROCEDURE `sp_medebes_contacts_select_user_to_profile`(IN v_user_from INT, IN v_user_to INT)
 BEGIN
 
 	SELECT users.id, users.name, users.mail, contacts.nickname FROM users, contacts contacts WHERE
@@ -659,7 +659,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_medebes_contact_requests_accept`(v_id INT, v_nickname VARCHAR(255))
+CREATE PROCEDURE `sp_medebes_contact_requests_accept`(v_id INT, v_nickname VARCHAR(255))
 BEGIN
 
 	DECLARE v_user_from INT;
@@ -689,7 +689,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_medebes_contact_requests_insert`(v_user_from INT, v_user_to INT, v_nickname VARCHAR(255))
+CREATE PROCEDURE `sp_medebes_contact_requests_insert`(v_user_from INT, v_user_to INT, v_nickname VARCHAR(255))
 BEGIN
 	
 	INSERT INTO contact_requests(user_from, user_to, date, nickname) VALUES (v_user_from, v_user_to, NOW(), v_nickname);
@@ -710,7 +710,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_medebes_contact_requests_reject`(v_id INT)
+CREATE PROCEDURE `sp_medebes_contact_requests_reject`(v_id INT)
 BEGIN
 	
     UPDATE contact_requests SET accepted = -1, date = NOW() WHERE id = v_id;
@@ -731,7 +731,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_medebes_contact_requests_select_user_to`(v_user_to INT)
+CREATE PROCEDURE `sp_medebes_contact_requests_select_user_to`(v_user_to INT)
 BEGIN
 
 	SELECT * FROM contact_requests WHERE user_to = v_user_to;
@@ -752,7 +752,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_medebes_contact_requests_select_waiting_user_to`(v_user_to INT)
+CREATE PROCEDURE `sp_medebes_contact_requests_select_waiting_user_to`(v_user_to INT)
 BEGIN
 
 	SELECT contact_requests.*, users.mail, users.name FROM contact_requests, users WHERE user_to = v_user_to AND accepted = 0 AND users.id = contact_requests.user_from;
@@ -773,7 +773,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_medebes_create_return_requests_accept`(IN v_id INT)
+CREATE PROCEDURE `sp_medebes_create_return_requests_accept`(IN v_id INT)
 BEGIN
 
 	UPDATE create_return_requests SET accepted = 1 WHERE id = v_id;
@@ -795,7 +795,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_medebes_create_return_requests_insert`(IN v_user_from INT, IN v_user_to INT, IN v_money DECIMAL(5,2), IN v_concept VARCHAR(255))
+CREATE PROCEDURE `sp_medebes_create_return_requests_insert`(IN v_user_from INT, IN v_user_to INT, IN v_money DECIMAL(5,2), IN v_concept VARCHAR(255))
 BEGIN
 
 	INSERT INTO create_return_requests (user_from, user_to, money, concept, date) VALUES (v_user_from, v_user_to, v_money, v_concept, NOW());
@@ -816,7 +816,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_medebes_create_return_requests_reject`(IN v_id INT)
+CREATE PROCEDURE `sp_medebes_create_return_requests_reject`(IN v_id INT)
 BEGIN
 
 	UPDATE create_return_requests SET accepted = -1 WHERE id = v_id;
@@ -837,7 +837,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_medebes_create_return_requests_select`()
+CREATE PROCEDURE `sp_medebes_create_return_requests_select`()
 BEGIN
 
 	SELECT * FROM create_return_requests;
@@ -858,7 +858,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_medebes_create_return_request_select_waiting_user_from`(IN v_id INT)
+CREATE PROCEDURE `sp_medebes_create_return_request_select_waiting_user_from`(IN v_id INT)
 BEGIN
 
 	SELECT * FROM create_return_requests WHERE user_from = v_id AND accepted = 0;
@@ -879,7 +879,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_medebes_create_return_request_select_waiting_user_to`(IN v_id INT)
+CREATE PROCEDURE `sp_medebes_create_return_request_select_waiting_user_to`(IN v_id INT)
 BEGIN
 
 	SELECT create_return_requests.*, contacts.nickname FROM create_return_requests, contacts WHERE
@@ -903,7 +903,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_medebes_finish_return_requests_accept`(IN v_id INT)
+CREATE PROCEDURE `sp_medebes_finish_return_requests_accept`(IN v_id INT)
 BEGIN
 	
 UPDATE finish_return_requests SET accepted = 1 WHERE id = v_id;
@@ -925,7 +925,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_medebes_finish_return_requests_reject`(IN v_id INT)
+CREATE PROCEDURE `sp_medebes_finish_return_requests_reject`(IN v_id INT)
 BEGIN
 	
 UPDATE finish_return_requests SET accepted = -1 WHERE id = v_id;
@@ -946,7 +946,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_medebes_finish_return_requests_select`()
+CREATE PROCEDURE `sp_medebes_finish_return_requests_select`()
 BEGIN
 
 	SELECT * FROM finish_return_requests;
@@ -967,7 +967,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_medebes_finish_return_request_insert`(IN v_id_return INT, IN v_user_from INT)
+CREATE PROCEDURE `sp_medebes_finish_return_request_insert`(IN v_id_return INT, IN v_user_from INT)
 BEGIN
 	
 	DECLARE return_user_from INT DEFAULT 0;
@@ -1001,7 +1001,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_medebes_finish_return_request_select_waiting_user_from`(IN v_id INT)
+CREATE PROCEDURE `sp_medebes_finish_return_request_select_waiting_user_from`(IN v_id INT)
 BEGIN
 
 	SELECT * FROM finish_return_requests WHERE user_from = v_id AND accepted = 0;
@@ -1022,7 +1022,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_medebes_finish_return_request_select_waiting_user_to`(IN v_id INT)
+CREATE PROCEDURE `sp_medebes_finish_return_request_select_waiting_user_to`(IN v_id INT)
 BEGIN
 
 	SELECT finish_return_requests.*, contacts.nickname, returns.concept FROM finish_return_requests, contacts, returns WHERE
@@ -1048,7 +1048,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_medebes_payment_history_accept`(IN v_id_payment INT)
+CREATE PROCEDURE `sp_medebes_payment_history_accept`(IN v_id_payment INT)
 BEGIN
 
 	UPDATE payment_history SET accepted = 1 WHERE id = v_id_payment;
@@ -1069,7 +1069,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_medebes_payment_history_insert`(IN v_id_return INT, IN v_user_from INT, IN v_amount DECIMAL(5,2))
+CREATE PROCEDURE `sp_medebes_payment_history_insert`(IN v_id_return INT, IN v_user_from INT, IN v_amount DECIMAL(5,2))
 BEGIN
 
 	DECLARE return_user_from INT DEFAULT 0;
@@ -1103,7 +1103,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_medebes_payment_history_reject`(IN v_id_payment INT)
+CREATE PROCEDURE `sp_medebes_payment_history_reject`(IN v_id_payment INT)
 BEGIN
 
 	UPDATE payment_history SET accepted = -1 WHERE id = v_id_payment;
@@ -1124,7 +1124,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_medebes_payment_history_select`()
+CREATE PROCEDURE `sp_medebes_payment_history_select`()
 BEGIN
 
 	SELECT * FROM payment_history;
@@ -1145,7 +1145,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_medebes_payment_history_select_id_return`(IN v_id_return INT)
+CREATE PROCEDURE `sp_medebes_payment_history_select_id_return`(IN v_id_return INT)
 BEGIN
 
 	SELECT * FROM payment_history WHERE id_return = v_id_return;
@@ -1166,7 +1166,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_medebes_payment_history_select_return`(IN v_id INT)
+CREATE PROCEDURE `sp_medebes_payment_history_select_return`(IN v_id INT)
 BEGIN
 
 	SELECT * FROM payment_history WHERE id_return = v_id AND accepted = 1;
@@ -1187,7 +1187,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_medebes_payment_history_select_waiting_user_to`(IN v_user_id INT)
+CREATE PROCEDURE `sp_medebes_payment_history_select_waiting_user_to`(IN v_user_id INT)
 BEGIN
 
 	SELECT payment_history.*, contacts.nickname, returns.concept FROM payment_history, contacts, returns WHERE 
@@ -1213,7 +1213,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_medebes_returns_getTotalReturn_from`(IN v_id INT)
+CREATE PROCEDURE `sp_medebes_returns_getTotalReturn_from`(IN v_id INT)
 BEGIN
 	
 	DECLARE totalCost DECIMAL(5,2) DEFAULT 0;
@@ -1252,7 +1252,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_medebes_returns_getTotalReturn_to`(IN v_id INT)
+CREATE PROCEDURE `sp_medebes_returns_getTotalReturn_to`(IN v_id INT)
 BEGIN
 	
 	DECLARE totalCost DECIMAL(5,2) DEFAULT 0;
@@ -1289,7 +1289,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_medebes_returns_insert`(IN v_id INT)
+CREATE PROCEDURE `sp_medebes_returns_insert`(IN v_id INT)
 BEGIN
 
 	DECLARE userFrom INT DEFAULT -1;
@@ -1324,7 +1324,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_medebes_returns_select`()
+CREATE PROCEDURE `sp_medebes_returns_select`()
 BEGIN
 
 	SELECT * FROM returns;
@@ -1345,7 +1345,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_medebes_returns_select_data`(IN v_id INT)
+CREATE PROCEDURE `sp_medebes_returns_select_data`(IN v_id INT)
 BEGIN
 
 	SELECT returns.*, sp_medebes_returns_select_total_byId(v_id) AS total FROM returns WHERE id = v_id; 
@@ -1366,7 +1366,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_medebes_returns_select_id`(IN v_id INT)
+CREATE PROCEDURE `sp_medebes_returns_select_id`(IN v_id INT)
 BEGIN
 
 	SELECT * FROM returns WHERE id = v_id; 
@@ -1387,7 +1387,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_medebes_returns_select_returned_user_from`(IN v_id INT)
+CREATE PROCEDURE `sp_medebes_returns_select_returned_user_from`(IN v_id INT)
 BEGIN
 
 	SELECT * FROM returns WHERE user_from = v_id AND finished = 1;
@@ -1408,7 +1408,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_medebes_returns_select_returned_user_to`(IN v_id INT)
+CREATE PROCEDURE `sp_medebes_returns_select_returned_user_to`(IN v_id INT)
 BEGIN
 
 	SELECT * FROM returns WHERE user_to = v_id AND finished = 1;
@@ -1429,7 +1429,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_medebes_returns_select_returnsData_from`(IN v_id INT)
+CREATE PROCEDURE `sp_medebes_returns_select_returnsData_from`(IN v_id INT)
 BEGIN
 	
 	SELECT returns.id, date, returns.user_from, returns.user_to, concept, money, sp_medebes_returns_select_total_byId(returns.id) AS total, contacts.nickname, users.name
@@ -1457,7 +1457,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_medebes_returns_select_returnsData_to`(IN v_id INT)
+CREATE PROCEDURE `sp_medebes_returns_select_returnsData_to`(IN v_id INT)
 BEGIN
 	
 	SELECT returns.id, date, returns.user_from, returns.user_to, concept, money, sp_medebes_returns_select_total_byId(returns.id) AS total, contacts.nickname, users.name
@@ -1485,7 +1485,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_medebes_returns_select_unreturned_user_from`(IN v_id INT)
+CREATE PROCEDURE `sp_medebes_returns_select_unreturned_user_from`(IN v_id INT)
 BEGIN
 
 	SELECT * FROM returns WHERE user_from = v_id AND finished = 0;
@@ -1506,7 +1506,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_medebes_returns_select_unreturned_user_to`(IN v_id INT)
+CREATE PROCEDURE `sp_medebes_returns_select_unreturned_user_to`(IN v_id INT)
 BEGIN
 
 	SELECT * FROM returns WHERE user_to = v_id AND finished = 0;
@@ -1527,7 +1527,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_medebes_returns_select_user_from`(IN v_id INT)
+CREATE PROCEDURE `sp_medebes_returns_select_user_from`(IN v_id INT)
 BEGIN
 
 	SELECT * FROM returns WHERE user_from = v_id;
@@ -1548,7 +1548,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_medebes_returns_select_user_to`(IN v_id INT)
+CREATE PROCEDURE `sp_medebes_returns_select_user_to`(IN v_id INT)
 BEGIN
 
 	SELECT * FROM returns WHERE user_to = v_id;
@@ -1569,7 +1569,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_medebes_users_insert`(IN v_name VARCHAR(255), IN v_mail VARCHAR(255), IN v_password VARCHAR (255))
+CREATE PROCEDURE `sp_medebes_users_insert`(IN v_name VARCHAR(255), IN v_mail VARCHAR(255), IN v_password VARCHAR (255))
 BEGIN
 	
     DECLARE nameExist INT DEFAULT -1;
@@ -1598,7 +1598,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_medebes_users_select`()
+CREATE PROCEDURE `sp_medebes_users_select`()
 BEGIN
 
 	SELECT * FROM users;
@@ -1619,7 +1619,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_medebes_users_select_id`(IN v_id VARCHAR(255))
+CREATE PROCEDURE `sp_medebes_users_select_id`(IN v_id VARCHAR(255))
 BEGIN
 
 	SELECT * FROM users WHERE id = v_id;
@@ -1640,7 +1640,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_medebes_users_select_mail`(IN v_mail VARCHAR(255))
+CREATE PROCEDURE `sp_medebes_users_select_mail`(IN v_mail VARCHAR(255))
 BEGIN
 
 	SELECT * FROM users WHERE mail = v_mail;
@@ -1661,7 +1661,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_medebes_users_select_mail_or_name`(IN v_info VARCHAR(255))
+CREATE PROCEDURE `sp_medebes_users_select_mail_or_name`(IN v_info VARCHAR(255))
 BEGIN
 
 	SELECT * FROM users WHERE mail = v_info OR name = v_info;
@@ -1682,7 +1682,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_medebes_users_select_name`(IN v_name VARCHAR(255))
+CREATE PROCEDURE `sp_medebes_users_select_name`(IN v_name VARCHAR(255))
 BEGIN
 
 	SELECT * FROM users WHERE name = v_name;
