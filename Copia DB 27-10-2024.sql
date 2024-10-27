@@ -1,8 +1,8 @@
 -- MySQL dump 10.13  Distrib 8.0.33, for Win64 (x86_64)
 --
--- Host: junction.proxy.rlwy.net    Database: railway
+-- Host: medebes-adoneyangeltj-9741.g.aivencloud.com    Database: defaultdb
 -- ------------------------------------------------------
--- Server version	9.1.0
+-- Server version	8.0.30
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -14,6 +14,15 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+SET @MYSQLDUMP_TEMP_LOG_BIN = @@SESSION.SQL_LOG_BIN;
+SET @@SESSION.SQL_LOG_BIN= 0;
+
+--
+-- GTID state at the beginning of the backup 
+--
+
+SET @@GLOBAL.GTID_PURGED=/*!80000 '+'*/ '1a314a31-38b8-11ef-85ff-32d2df1c4d1e:1-32,
+bc17d661-8e2b-11ef-b59b-dedc524be214:1-814';
 
 --
 -- Table structure for table `contact_requests`
@@ -28,7 +37,7 @@ CREATE TABLE `contact_requests` (
   `user_to` int NOT NULL,
   `accepted` int DEFAULT '0',
   `date` datetime DEFAULT NULL,
-  `nickname` varchar(45) COLLATE utf8mb4_general_ci NOT NULL,
+  `nickname` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_contact_request_from` (`user_from`),
   KEY `FK_contact_request_to` (`user_to`),
@@ -56,7 +65,7 @@ CREATE TABLE `contacts` (
   `id` int NOT NULL AUTO_INCREMENT,
   `user_from` int DEFAULT NULL,
   `user_to` int DEFAULT NULL,
-  `nickname` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `nickname` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_contacts_from` (`user_from`),
   KEY `FK_contacts_to` (`user_to`),
@@ -86,14 +95,14 @@ CREATE TABLE `create_return_requests` (
   `user_from` int NOT NULL,
   `user_to` int NOT NULL,
   `accepted` tinyint DEFAULT '0',
-  `concept` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `concept` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `money` decimal(6,2) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_create_return_from` (`user_from`),
   KEY `FK_create_return_to` (`user_to`),
   CONSTRAINT `FK_create_return_from` FOREIGN KEY (`user_from`) REFERENCES `users` (`id`),
   CONSTRAINT `FK_create_return_to` FOREIGN KEY (`user_to`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -101,7 +110,7 @@ CREATE TABLE `create_return_requests` (
 --
 
 /*!40000 ALTER TABLE `create_return_requests` DISABLE KEYS */;
-INSERT INTO `create_return_requests` VALUES (1,'2024-06-16 00:00:00',2,3,1,'Prueba2-3',150.00),(2,'2024-06-16 12:21:51',2,4,1,'Prueba2-4',15.00),(3,'2024-06-18 16:42:55',4,3,1,'reparacion',34.30),(4,'2024-06-18 22:29:46',5,4,-1,'prueba5-4',25.20),(5,'2024-06-19 09:20:58',2,4,1,'prueba2(2)-4',5.00),(6,'2024-06-19 11:40:29',1,2,-1,'prueba1-4',13.00),(7,'2024-06-19 18:00:00',2,1,1,'Prueba de menu devolucion',22.40),(8,'2024-06-20 10:49:53',2,1,1,'porque si',15.00),(9,'2024-08-29 18:18:56',10,5,1,'卐\n',848.99),(10,'2024-08-30 16:30:56',11,12,1,'Prueba',10.00),(11,'2024-08-30 16:33:40',11,12,-1,'comision',10.00),(12,'2024-08-31 13:59:05',11,10,-1,'prueba',111.00),(13,'2024-08-31 14:06:07',11,10,-1,'ffasa',5555.00),(14,'2024-08-31 14:07:51',10,11,1,'PRUEBA YO DEBO',3213.00),(15,'2024-09-06 11:48:27',11,12,1,'Tendedero',50.00),(16,'2024-09-08 11:55:58',11,12,1,'Mochilas',50.00),(17,'2024-09-08 12:00:01',10,12,1,'Peluquería ',50.00),(18,'2024-09-10 17:11:52',11,10,1,'Libros',150.00),(19,'2024-09-16 11:19:43',11,12,1,'Gasolina y papas',50.00),(20,'2024-10-03 12:10:51',11,12,1,'Gasolina',10.00),(21,'2024-10-09 08:39:30',11,12,1,'no se de que',50.00),(22,'2024-10-14 07:56:58',11,12,1,'Leche',50.00);
+INSERT INTO `create_return_requests` VALUES (1,'2024-06-16 00:00:00',2,3,1,'Prueba2-3',150.00),(2,'2024-06-16 12:21:51',2,4,1,'Prueba2-4',15.00),(3,'2024-06-18 16:42:55',4,3,1,'reparacion',34.30),(4,'2024-06-18 22:29:46',5,4,-1,'prueba5-4',25.20),(5,'2024-06-19 09:20:58',2,4,1,'prueba2(2)-4',5.00),(6,'2024-06-19 11:40:29',1,2,-1,'prueba1-4',13.00),(7,'2024-06-19 18:00:00',2,1,1,'Prueba de menu devolucion',22.40),(8,'2024-06-20 10:49:53',2,1,1,'porque si',15.00),(9,'2024-08-29 18:18:56',10,5,1,'卐\n',848.99),(10,'2024-08-30 16:30:56',11,12,1,'Prueba',10.00),(11,'2024-08-30 16:33:40',11,12,-1,'comision',10.00),(12,'2024-08-31 13:59:05',11,10,-1,'prueba',111.00),(13,'2024-08-31 14:06:07',11,10,-1,'ffasa',5555.00),(14,'2024-08-31 14:07:51',10,11,1,'PRUEBA YO DEBO',3213.00),(15,'2024-09-06 11:48:27',11,12,1,'Tendedero',50.00),(16,'2024-09-08 11:55:58',11,12,1,'Mochilas',50.00),(17,'2024-09-08 12:00:01',10,12,1,'Peluquería ',50.00),(18,'2024-09-10 17:11:52',11,10,1,'Libros',150.00),(19,'2024-09-16 11:19:43',11,12,1,'Gasolina y papas',50.00),(20,'2024-10-03 12:10:51',11,12,1,'Gasolina',10.00),(21,'2024-10-09 08:39:30',11,12,1,'no se de que',50.00),(22,'2024-10-14 07:56:58',11,12,1,'Leche',50.00),(23,'2024-10-20 19:13:24',11,12,1,'Por si acaso',50.00);
 /*!40000 ALTER TABLE `create_return_requests` ENABLE KEYS */;
 
 --
@@ -125,7 +134,7 @@ CREATE TABLE `finish_return_requests` (
   CONSTRAINT `FK_finish_return` FOREIGN KEY (`id`) REFERENCES `returns` (`id`),
   CONSTRAINT `FK_finish_return_from` FOREIGN KEY (`user_from`) REFERENCES `users` (`id`),
   CONSTRAINT `FK_finish_return_to` FOREIGN KEY (`user_to`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -133,7 +142,7 @@ CREATE TABLE `finish_return_requests` (
 --
 
 /*!40000 ALTER TABLE `finish_return_requests` DISABLE KEYS */;
-INSERT INTO `finish_return_requests` VALUES (10,'2024-08-30 16:32:41',1,12,11,1),(9,'2024-08-31 14:44:38',1,10,5,2),(9,'2024-08-31 14:44:38',1,10,5,3),(9,'2024-08-31 14:44:38',1,10,5,4),(9,'2024-08-31 14:44:38',1,10,5,5),(14,'2024-08-31 14:43:58',1,11,10,6),(14,'2024-08-31 14:43:58',1,10,11,7),(14,'2024-08-31 14:43:58',1,10,11,8),(9,'2024-08-31 14:44:38',1,10,5,9),(9,'2024-08-31 14:44:38',1,10,5,10),(9,'2024-08-31 14:44:38',1,10,5,11),(9,'2024-08-31 14:44:38',1,10,5,12),(14,'2024-08-31 14:43:58',1,10,11,13),(17,'2024-09-24 06:36:05',1,10,12,14),(17,'2024-09-24 06:36:05',1,10,12,15),(15,'2024-09-24 10:44:33',1,11,12,16),(16,'2024-09-24 10:44:41',1,11,12,17),(18,'2024-09-24 13:37:50',1,11,10,18),(19,'2024-09-24 10:44:54',1,11,12,19);
+INSERT INTO `finish_return_requests` VALUES (10,'2024-08-30 16:32:41',1,12,11,1),(9,'2024-08-31 14:44:38',1,10,5,2),(9,'2024-08-31 14:44:38',1,10,5,3),(9,'2024-08-31 14:44:38',1,10,5,4),(9,'2024-08-31 14:44:38',1,10,5,5),(14,'2024-08-31 14:43:58',1,11,10,6),(14,'2024-08-31 14:43:58',1,10,11,7),(14,'2024-08-31 14:43:58',1,10,11,8),(9,'2024-08-31 14:44:38',1,10,5,9),(9,'2024-08-31 14:44:38',1,10,5,10),(9,'2024-08-31 14:44:38',1,10,5,11),(9,'2024-08-31 14:44:38',1,10,5,12),(14,'2024-08-31 14:43:58',1,10,11,13),(17,'2024-09-24 06:36:05',1,10,12,14),(17,'2024-09-24 06:36:05',1,10,12,15),(15,'2024-09-24 10:44:33',1,11,12,16),(16,'2024-09-24 10:44:41',1,11,12,17),(18,'2024-09-24 13:37:50',1,11,10,18),(19,'2024-09-24 10:44:54',1,11,12,19),(22,'2024-10-24 09:35:02',1,11,12,20),(22,'2024-10-24 09:35:02',1,11,12,21),(21,'2024-10-25 08:06:29',1,11,12,22);
 /*!40000 ALTER TABLE `finish_return_requests` ENABLE KEYS */;
 
 --
@@ -182,7 +191,7 @@ CREATE TABLE `returns` (
   `finished` tinyint(1) DEFAULT '0',
   `user_from` int NOT NULL,
   `user_to` int NOT NULL,
-  `concept` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `concept` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `money` decimal(6,2) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_return_from` (`user_from`),
@@ -190,7 +199,7 @@ CREATE TABLE `returns` (
   CONSTRAINT `FK_return_from` FOREIGN KEY (`user_from`) REFERENCES `users` (`id`),
   CONSTRAINT `FK_return_to` FOREIGN KEY (`user_to`) REFERENCES `users` (`id`),
   CONSTRAINT `FK_returns_id` FOREIGN KEY (`id`) REFERENCES `create_return_requests` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -198,7 +207,7 @@ CREATE TABLE `returns` (
 --
 
 /*!40000 ALTER TABLE `returns` DISABLE KEYS */;
-INSERT INTO `returns` VALUES (1,'2024-06-18 16:00:09',0,2,3,'Prueba2-3',150.00),(2,'2024-06-19 09:09:28',1,2,4,'Prueba2-4',15.00),(5,'2024-06-19 09:28:57',1,2,4,'prueba2(2)-4',5.00),(7,'2024-06-19 18:16:08',0,2,1,'Prueba de menu devolucion',22.40),(8,'2024-06-20 10:50:19',0,2,1,'porque si',15.00),(9,'2024-08-29 18:21:01',1,10,5,'卐\n',848.99),(10,'2024-08-30 16:31:34',1,11,12,'Prueba',10.00),(14,'2024-08-31 14:10:24',1,10,11,'PRUEBA YO DEBO',3213.00),(15,'2024-09-06 11:49:10',1,11,12,'Tendedero',50.00),(16,'2024-09-08 11:57:06',1,11,12,'Mochilas',50.00),(17,'2024-09-08 12:00:07',1,10,12,'Peluquería ',50.00),(18,'2024-09-10 17:13:44',1,11,10,'Libros',150.00),(19,'2024-09-16 11:20:09',1,11,12,'Gasolina y papas',50.00),(20,'2024-10-03 12:11:47',0,11,12,'Gasolina',10.00),(21,'2024-10-09 08:42:24',0,11,12,'no se de que',50.00),(22,'2024-10-14 08:00:00',0,11,12,'Leche',50.00);
+INSERT INTO `returns` VALUES (1,'2024-06-18 16:00:09',0,2,3,'Prueba2-3',150.00),(2,'2024-06-19 09:09:28',1,2,4,'Prueba2-4',15.00),(5,'2024-06-19 09:28:57',1,2,4,'prueba2(2)-4',5.00),(7,'2024-06-19 18:16:08',0,2,1,'Prueba de menu devolucion',22.40),(8,'2024-06-20 10:50:19',0,2,1,'porque si',15.00),(9,'2024-08-29 18:21:01',1,10,5,'卐\n',848.99),(10,'2024-08-30 16:31:34',1,11,12,'Prueba',10.00),(14,'2024-08-31 14:10:24',1,10,11,'PRUEBA YO DEBO',3213.00),(15,'2024-09-06 11:49:10',1,11,12,'Tendedero',50.00),(16,'2024-09-08 11:57:06',1,11,12,'Mochilas',50.00),(17,'2024-09-08 12:00:07',1,10,12,'Peluquería ',50.00),(18,'2024-09-10 17:13:44',1,11,10,'Libros',150.00),(19,'2024-09-16 11:20:09',1,11,12,'Gasolina y papas',50.00),(20,'2024-10-03 12:11:47',0,11,12,'Gasolina',10.00),(21,'2024-10-09 08:42:24',1,11,12,'no se de que',50.00),(22,'2024-10-14 08:00:00',1,11,12,'Leche',50.00),(23,'2024-10-20 19:17:51',0,11,12,'Por si acaso',50.00);
 /*!40000 ALTER TABLE `returns` ENABLE KEYS */;
 
 --
@@ -210,9 +219,9 @@ DROP TABLE IF EXISTS `users`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `users` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(45) COLLATE utf8mb4_general_ci NOT NULL,
-  `mail` varchar(45) COLLATE utf8mb4_general_ci NOT NULL,
-  `password` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `name` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `mail` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -226,7 +235,7 @@ INSERT INTO `users` VALUES (1,'prueba1','prueba1@gmail.com','$2b$10$cQeT3m/hehrB
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 --
--- Dumping routines for database 'railway'
+-- Dumping routines for database 'defaultdb'
 --
 /*!50003 DROP FUNCTION IF EXISTS `sp_medebes_contacts_aggregates` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -238,7 +247,7 @@ INSERT INTO `users` VALUES (1,'prueba1','prueba1@gmail.com','$2b$10$cQeT3m/hehrB
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE FUNCTION `sp_medebes_contacts_aggregates`(v_user_a VARCHAR(255) , v_user_b VARCHAR(255)) RETURNS tinyint(1)
+CREATE DEFINER=`avnadmin`@`%` FUNCTION `sp_medebes_contacts_aggregates`(v_user_a VARCHAR(255) , v_user_b VARCHAR(255)) RETURNS tinyint(1)
 BEGIN
 	
     DECLARE a_b INT DEFAULT 0;
@@ -278,7 +287,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE FUNCTION `sp_medebes_contacts_exist`(v_user_from INT, v_user_to INT) RETURNS tinyint(1)
+CREATE DEFINER=`avnadmin`@`%` FUNCTION `sp_medebes_contacts_exist`(v_user_from INT, v_user_to INT) RETURNS tinyint(1)
 BEGIN
 
 	DECLARE contactId INT DEFAULT -1;
@@ -310,7 +319,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE FUNCTION `sp_medebes_contacts_has_added`(v_user_a VARCHAR(255) , v_user_b VARCHAR(255)) RETURNS tinyint(1)
+CREATE DEFINER=`avnadmin`@`%` FUNCTION `sp_medebes_contacts_has_added`(v_user_a VARCHAR(255) , v_user_b VARCHAR(255)) RETURNS tinyint(1)
 BEGIN
 	
     DECLARE a_b INT DEFAULT 0;
@@ -344,7 +353,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE FUNCTION `sp_medebes_returns_select_total_byId`(v_id INT) RETURNS decimal(7,2)
+CREATE DEFINER=`avnadmin`@`%` FUNCTION `sp_medebes_returns_select_total_byId`(v_id INT) RETURNS decimal(7,2)
 BEGIN
 
 	DECLARE totalMoney DECIMAL(7,2) DEFAULT 0;
@@ -379,7 +388,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE FUNCTION `sp_medebes_users_haveNotifications`(v_id INT) RETURNS tinyint(1)
+CREATE DEFINER=`avnadmin`@`%` FUNCTION `sp_medebes_users_haveNotifications`(v_id INT) RETURNS tinyint(1)
 BEGIN
 
 	DECLARE haveCreationRequest INT DEFAULT 0;
@@ -427,7 +436,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE FUNCTION `sp_medebes_users_login`(v_mail VARCHAR(255), v_password VARCHAR(255)) RETURNS tinyint(1)
+CREATE DEFINER=`avnadmin`@`%` FUNCTION `sp_medebes_users_login`(v_mail VARCHAR(255), v_password VARCHAR(255)) RETURNS tinyint(1)
 BEGIN
 	DECLARE idFound INT DEFAULT -1;
     
@@ -455,7 +464,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE FUNCTION `sp_medebes_users_select_id_mail`(v_mail VARCHAR(255)) RETURNS int
+CREATE DEFINER=`avnadmin`@`%` FUNCTION `sp_medebes_users_select_id_mail`(v_mail VARCHAR(255)) RETURNS int
 BEGIN
 
 	DECLARE idFound INT DEFAULT -1;
@@ -480,7 +489,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_medebes_contacts_delete`(IN v_user_from INT, IN v_user_to INT)
+CREATE DEFINER=`avnadmin`@`%` PROCEDURE `sp_medebes_contacts_delete`(IN v_user_from INT, IN v_user_to INT)
 BEGIN
 
 	DELETE FROM contacts WHERE user_from = v_user_from AND user_to = v_user_to;
@@ -501,7 +510,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_medebes_contacts_insert`(IN v_user_from INT, IN v_user_to INT, IN v_nickname VARCHAR(255) )
+CREATE DEFINER=`avnadmin`@`%` PROCEDURE `sp_medebes_contacts_insert`(IN v_user_from INT, IN v_user_to INT, IN v_nickname VARCHAR(255) )
 BEGIN
 
 	DECLARE userFromExist INT DEFAULT -1;
@@ -537,7 +546,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_medebes_contacts_rename`(IN v_user_from INT, IN v_user_to INT, IN v_nickname VARCHAR(255))
+CREATE DEFINER=`avnadmin`@`%` PROCEDURE `sp_medebes_contacts_rename`(IN v_user_from INT, IN v_user_to INT, IN v_nickname VARCHAR(255))
 BEGIN
 	
     UPDATE contacts SET nickname = v_nickname WHERE user_from = v_user_from AND user_to = v_user_to;
@@ -558,7 +567,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_medebes_contacts_select`()
+CREATE DEFINER=`avnadmin`@`%` PROCEDURE `sp_medebes_contacts_select`()
 BEGIN
 
 	SELECT * FROM contacts;
@@ -579,7 +588,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_medebes_contacts_select_user_from`(IN v_user_from INT)
+CREATE DEFINER=`avnadmin`@`%` PROCEDURE `sp_medebes_contacts_select_user_from`(IN v_user_from INT)
 BEGIN
 
 	SELECT * FROM contacts WHERE user_from = v_user_from;
@@ -600,7 +609,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_medebes_contacts_select_user_from_profiles`(IN v_user_from INT)
+CREATE DEFINER=`avnadmin`@`%` PROCEDURE `sp_medebes_contacts_select_user_from_profiles`(IN v_user_from INT)
 BEGIN
 
 	SELECT users.id, users.name, users.mail, contacts.nickname FROM contacts, users WHERE contacts.user_from = v_user_from AND users.id = contacts.user_to;
@@ -621,7 +630,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_medebes_contacts_select_user_to_profile`(IN v_user_from INT, IN v_user_to INT)
+CREATE DEFINER=`avnadmin`@`%` PROCEDURE `sp_medebes_contacts_select_user_to_profile`(IN v_user_from INT, IN v_user_to INT)
 BEGIN
 
 	SELECT users.id, users.name, users.mail, contacts.nickname FROM users, contacts contacts WHERE
@@ -645,7 +654,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_medebes_contact_requests_accept`(v_id INT, v_nickname VARCHAR(255))
+CREATE DEFINER=`avnadmin`@`%` PROCEDURE `sp_medebes_contact_requests_accept`(v_id INT, v_nickname VARCHAR(255))
 BEGIN
 
 	DECLARE v_user_from INT;
@@ -675,7 +684,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_medebes_contact_requests_insert`(v_user_from INT, v_user_to INT, v_nickname VARCHAR(255))
+CREATE DEFINER=`avnadmin`@`%` PROCEDURE `sp_medebes_contact_requests_insert`(v_user_from INT, v_user_to INT, v_nickname VARCHAR(255))
 BEGIN
 	
 	INSERT INTO contact_requests(user_from, user_to, date, nickname) VALUES (v_user_from, v_user_to, NOW(), v_nickname);
@@ -696,7 +705,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_medebes_contact_requests_reject`(v_id INT)
+CREATE DEFINER=`avnadmin`@`%` PROCEDURE `sp_medebes_contact_requests_reject`(v_id INT)
 BEGIN
 	
     UPDATE contact_requests SET accepted = -1, date = NOW() WHERE id = v_id;
@@ -717,7 +726,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_medebes_contact_requests_select_user`(v_user_id INT)
+CREATE DEFINER=`avnadmin`@`%` PROCEDURE `sp_medebes_contact_requests_select_user`(v_user_id INT)
 BEGIN
 
 	SELECT contact_requests.*, users.name, users.mail FROM contact_requests, users WHERE 
@@ -739,7 +748,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_medebes_contact_requests_select_user_to`(v_user_to INT)
+CREATE DEFINER=`avnadmin`@`%` PROCEDURE `sp_medebes_contact_requests_select_user_to`(v_user_to INT)
 BEGIN
 
 	SELECT * FROM contact_requests WHERE user_to = v_user_to;
@@ -760,7 +769,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_medebes_contact_requests_select_waiting_user_to`(v_user_to INT)
+CREATE DEFINER=`avnadmin`@`%` PROCEDURE `sp_medebes_contact_requests_select_waiting_user_to`(v_user_to INT)
 BEGIN
 
 	SELECT contact_requests.*, users.mail, users.name FROM contact_requests, users WHERE user_to = v_user_to AND accepted = 0 AND users.id = contact_requests.user_from;
@@ -781,7 +790,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_medebes_create_return_requests_accept`(IN v_id INT)
+CREATE DEFINER=`avnadmin`@`%` PROCEDURE `sp_medebes_create_return_requests_accept`(IN v_id INT)
 BEGIN
 
 	UPDATE create_return_requests SET accepted = 1 WHERE id = v_id;
@@ -803,7 +812,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_medebes_create_return_requests_insert`(IN v_user_from INT, IN v_user_to INT, IN v_money DECIMAL(7,2), IN v_concept VARCHAR(255))
+CREATE DEFINER=`avnadmin`@`%` PROCEDURE `sp_medebes_create_return_requests_insert`(IN v_user_from INT, IN v_user_to INT, IN v_money DECIMAL(7,2), IN v_concept VARCHAR(255))
 BEGIN
 
 	INSERT INTO create_return_requests (user_from, user_to, money, concept, date) VALUES (v_user_from, v_user_to, v_money, v_concept, NOW());
@@ -824,7 +833,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_medebes_create_return_requests_reject`(IN v_id INT)
+CREATE DEFINER=`avnadmin`@`%` PROCEDURE `sp_medebes_create_return_requests_reject`(IN v_id INT)
 BEGIN
 
 	UPDATE create_return_requests SET accepted = -1 WHERE id = v_id;
@@ -845,7 +854,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_medebes_create_return_requests_select`()
+CREATE DEFINER=`avnadmin`@`%` PROCEDURE `sp_medebes_create_return_requests_select`()
 BEGIN
 
 	SELECT * FROM create_return_requests;
@@ -866,7 +875,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_medebes_create_return_requests_select_user`(v_user_id INT)
+CREATE DEFINER=`avnadmin`@`%` PROCEDURE `sp_medebes_create_return_requests_select_user`(v_user_id INT)
 BEGIN
 
 	SELECT create_return_requests.*, users.name, users.mail FROM create_return_requests, users WHERE 
@@ -888,7 +897,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_medebes_create_return_request_select_waiting_user_from`(IN v_id INT)
+CREATE DEFINER=`avnadmin`@`%` PROCEDURE `sp_medebes_create_return_request_select_waiting_user_from`(IN v_id INT)
 BEGIN
 
 	SELECT * FROM create_return_requests WHERE user_from = v_id AND accepted = 0;
@@ -909,7 +918,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_medebes_create_return_request_select_waiting_user_to`(IN v_id INT)
+CREATE DEFINER=`avnadmin`@`%` PROCEDURE `sp_medebes_create_return_request_select_waiting_user_to`(IN v_id INT)
 BEGIN
 
 	SELECT create_return_requests.*, contacts.nickname FROM create_return_requests, contacts WHERE
@@ -933,7 +942,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_medebes_finish_return_requests_accept`(IN v_id INT)
+CREATE DEFINER=`avnadmin`@`%` PROCEDURE `sp_medebes_finish_return_requests_accept`(IN v_id INT)
 BEGIN
 	
 UPDATE finish_return_requests SET accepted = 1, date = NOW() WHERE id = v_id;
@@ -955,7 +964,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_medebes_finish_return_requests_reject`(IN v_id INT)
+CREATE DEFINER=`avnadmin`@`%` PROCEDURE `sp_medebes_finish_return_requests_reject`(IN v_id INT)
 BEGIN
 	
 UPDATE finish_return_requests SET accepted = -1, date = NOW() WHERE id = v_id;
@@ -976,7 +985,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_medebes_finish_return_requests_select`()
+CREATE DEFINER=`avnadmin`@`%` PROCEDURE `sp_medebes_finish_return_requests_select`()
 BEGIN
 
 	SELECT * FROM finish_return_requests;
@@ -997,7 +1006,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_medebes_finish_return_requests_select_user`(v_user_id INT)
+CREATE DEFINER=`avnadmin`@`%` PROCEDURE `sp_medebes_finish_return_requests_select_user`(v_user_id INT)
 BEGIN
 
 	SELECT finish_return_requests.*, users.name, users.mail, returns.concept FROM finish_return_requests, users, returns WHERE 
@@ -1020,7 +1029,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_medebes_finish_return_request_insert`(IN v_id_return INT, IN v_user_from INT)
+CREATE DEFINER=`avnadmin`@`%` PROCEDURE `sp_medebes_finish_return_request_insert`(IN v_id_return INT, IN v_user_from INT)
 BEGIN
 	
 	DECLARE return_user_from INT DEFAULT 0;
@@ -1054,7 +1063,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_medebes_finish_return_request_select_waiting_user_from`(IN v_id INT)
+CREATE DEFINER=`avnadmin`@`%` PROCEDURE `sp_medebes_finish_return_request_select_waiting_user_from`(IN v_id INT)
 BEGIN
 
 	SELECT * FROM finish_return_requests WHERE user_from = v_id AND accepted = 0;
@@ -1075,7 +1084,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_medebes_finish_return_request_select_waiting_user_to`(IN v_id INT)
+CREATE DEFINER=`avnadmin`@`%` PROCEDURE `sp_medebes_finish_return_request_select_waiting_user_to`(IN v_id INT)
 BEGIN
 
 	SELECT finish_return_requests.*, contacts.nickname, returns.concept FROM finish_return_requests, contacts, returns WHERE
@@ -1101,7 +1110,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_medebes_payment_history_accept`(IN v_id_payment INT)
+CREATE DEFINER=`avnadmin`@`%` PROCEDURE `sp_medebes_payment_history_accept`(IN v_id_payment INT)
 BEGIN
 
 	UPDATE payment_history SET accepted = 1, date = NOW() WHERE id = v_id_payment;
@@ -1122,7 +1131,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_medebes_payment_history_insert`(IN v_id_return INT, IN v_user_from INT, IN v_amount DECIMAL(7,2))
+CREATE DEFINER=`avnadmin`@`%` PROCEDURE `sp_medebes_payment_history_insert`(IN v_id_return INT, IN v_user_from INT, IN v_amount DECIMAL(7,2))
 BEGIN
 
 	DECLARE return_user_from INT DEFAULT 0;
@@ -1156,7 +1165,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_medebes_payment_history_reject`(IN v_id_payment INT)
+CREATE DEFINER=`avnadmin`@`%` PROCEDURE `sp_medebes_payment_history_reject`(IN v_id_payment INT)
 BEGIN
 
 	UPDATE payment_history SET accepted = -1, date = NOW() WHERE id = v_id_payment;
@@ -1177,7 +1186,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_medebes_payment_history_select`()
+CREATE DEFINER=`avnadmin`@`%` PROCEDURE `sp_medebes_payment_history_select`()
 BEGIN
 
 	SELECT * FROM payment_history;
@@ -1198,7 +1207,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_medebes_payment_history_select_id_return`(IN v_id_return INT)
+CREATE DEFINER=`avnadmin`@`%` PROCEDURE `sp_medebes_payment_history_select_id_return`(IN v_id_return INT)
 BEGIN
 
 	SELECT * FROM payment_history WHERE id_return = v_id_return;
@@ -1219,7 +1228,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_medebes_payment_history_select_return`(IN v_id INT)
+CREATE DEFINER=`avnadmin`@`%` PROCEDURE `sp_medebes_payment_history_select_return`(IN v_id INT)
 BEGIN
 
 	SELECT * FROM payment_history WHERE id_return = v_id AND accepted = 1;
@@ -1240,7 +1249,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_medebes_payment_history_select_user`(v_user_id INT)
+CREATE DEFINER=`avnadmin`@`%` PROCEDURE `sp_medebes_payment_history_select_user`(v_user_id INT)
 BEGIN
 
 	SELECT payment_history.*, users.name, users.mail, returns.concept FROM payment_history, users, returns WHERE 
@@ -1263,7 +1272,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_medebes_payment_history_select_waiting_user_to`(IN v_user_id INT)
+CREATE DEFINER=`avnadmin`@`%` PROCEDURE `sp_medebes_payment_history_select_waiting_user_to`(IN v_user_id INT)
 BEGIN
 
 	SELECT payment_history.*, contacts.nickname, returns.concept FROM payment_history, contacts, returns WHERE 
@@ -1289,7 +1298,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_medebes_returns_getTotalReturn_from`(IN v_id INT)
+CREATE DEFINER=`avnadmin`@`%` PROCEDURE `sp_medebes_returns_getTotalReturn_from`(IN v_id INT)
 BEGIN
 	
 	DECLARE totalCost DECIMAL(7,2) DEFAULT 0;
@@ -1328,7 +1337,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_medebes_returns_getTotalReturn_to`(IN v_id INT)
+CREATE DEFINER=`avnadmin`@`%` PROCEDURE `sp_medebes_returns_getTotalReturn_to`(IN v_id INT)
 BEGIN
 	
 	DECLARE totalCost DECIMAL(7,2) DEFAULT 0;
@@ -1365,7 +1374,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_medebes_returns_insert`(IN v_id INT)
+CREATE DEFINER=`avnadmin`@`%` PROCEDURE `sp_medebes_returns_insert`(IN v_id INT)
 BEGIN
 
 	DECLARE userFrom INT DEFAULT -1;
@@ -1400,7 +1409,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_medebes_returns_select`()
+CREATE DEFINER=`avnadmin`@`%` PROCEDURE `sp_medebes_returns_select`()
 BEGIN
 
 	SELECT * FROM returns;
@@ -1421,7 +1430,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_medebes_returns_select_data`(IN v_id INT)
+CREATE DEFINER=`avnadmin`@`%` PROCEDURE `sp_medebes_returns_select_data`(IN v_id INT)
 BEGIN
 
 	SELECT returns.*, sp_medebes_returns_select_total_byId(v_id) AS total FROM returns WHERE id = v_id; 
@@ -1442,7 +1451,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_medebes_returns_select_id`(IN v_id INT)
+CREATE DEFINER=`avnadmin`@`%` PROCEDURE `sp_medebes_returns_select_id`(IN v_id INT)
 BEGIN
 
 	SELECT * FROM returns WHERE id = v_id; 
@@ -1463,7 +1472,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_medebes_returns_select_returned_user_from`(IN v_id INT)
+CREATE DEFINER=`avnadmin`@`%` PROCEDURE `sp_medebes_returns_select_returned_user_from`(IN v_id INT)
 BEGIN
 
 	SELECT * FROM returns WHERE user_from = v_id AND finished = 1;
@@ -1484,7 +1493,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_medebes_returns_select_returned_user_to`(IN v_id INT)
+CREATE DEFINER=`avnadmin`@`%` PROCEDURE `sp_medebes_returns_select_returned_user_to`(IN v_id INT)
 BEGIN
 
 	SELECT * FROM returns WHERE user_to = v_id AND finished = 1;
@@ -1505,7 +1514,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_medebes_returns_select_returnsData_from`(IN v_id INT)
+CREATE DEFINER=`avnadmin`@`%` PROCEDURE `sp_medebes_returns_select_returnsData_from`(IN v_id INT)
 BEGIN
 	
 	SELECT returns.id, date, returns.user_from, returns.user_to, concept, money, sp_medebes_returns_select_total_byId(returns.id) AS total, contacts.nickname, users.name
@@ -1533,7 +1542,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_medebes_returns_select_returnsData_to`(IN v_id INT)
+CREATE DEFINER=`avnadmin`@`%` PROCEDURE `sp_medebes_returns_select_returnsData_to`(IN v_id INT)
 BEGIN
 	
 	SELECT returns.id, date, returns.user_from, returns.user_to, concept, money, sp_medebes_returns_select_total_byId(returns.id) AS total, contacts.nickname, users.name
@@ -1561,7 +1570,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_medebes_returns_select_unreturned_user_from`(IN v_id INT)
+CREATE DEFINER=`avnadmin`@`%` PROCEDURE `sp_medebes_returns_select_unreturned_user_from`(IN v_id INT)
 BEGIN
 
 	SELECT * FROM returns WHERE user_from = v_id AND finished = 0;
@@ -1582,7 +1591,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_medebes_returns_select_unreturned_user_to`(IN v_id INT)
+CREATE DEFINER=`avnadmin`@`%` PROCEDURE `sp_medebes_returns_select_unreturned_user_to`(IN v_id INT)
 BEGIN
 
 	SELECT * FROM returns WHERE user_to = v_id AND finished = 0;
@@ -1603,7 +1612,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_medebes_returns_select_user`(v_user_id INT)
+CREATE DEFINER=`avnadmin`@`%` PROCEDURE `sp_medebes_returns_select_user`(v_user_id INT)
 BEGIN
 
 	SELECT returns.*, users.name, users.mail FROM returns, users WHERE 
@@ -1626,7 +1635,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_medebes_returns_select_user_from`(IN v_id INT)
+CREATE DEFINER=`avnadmin`@`%` PROCEDURE `sp_medebes_returns_select_user_from`(IN v_id INT)
 BEGIN
 
 	SELECT * FROM returns WHERE user_from = v_id;
@@ -1647,7 +1656,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_medebes_returns_select_user_to`(IN v_id INT)
+CREATE DEFINER=`avnadmin`@`%` PROCEDURE `sp_medebes_returns_select_user_to`(IN v_id INT)
 BEGIN
 
 	SELECT * FROM returns WHERE user_to = v_id;
@@ -1668,7 +1677,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_medebes_users_insert`(IN v_name VARCHAR(255), IN v_mail VARCHAR(255), IN v_password VARCHAR (255))
+CREATE DEFINER=`avnadmin`@`%` PROCEDURE `sp_medebes_users_insert`(IN v_name VARCHAR(255), IN v_mail VARCHAR(255), IN v_password VARCHAR (255))
 BEGIN
 	
     DECLARE nameExist INT DEFAULT -1;
@@ -1697,7 +1706,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_medebes_users_select`()
+CREATE DEFINER=`avnadmin`@`%` PROCEDURE `sp_medebes_users_select`()
 BEGIN
 
 	SELECT * FROM users;
@@ -1718,7 +1727,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_medebes_users_select_id`(IN v_id VARCHAR(255))
+CREATE DEFINER=`avnadmin`@`%` PROCEDURE `sp_medebes_users_select_id`(IN v_id VARCHAR(255))
 BEGIN
 
 	SELECT * FROM users WHERE id = v_id;
@@ -1739,7 +1748,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_medebes_users_select_mail`(IN v_mail VARCHAR(255))
+CREATE DEFINER=`avnadmin`@`%` PROCEDURE `sp_medebes_users_select_mail`(IN v_mail VARCHAR(255))
 BEGIN
 
 	SELECT * FROM users WHERE mail = v_mail;
@@ -1760,7 +1769,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_medebes_users_select_mail_or_name`(IN v_info VARCHAR(255))
+CREATE DEFINER=`avnadmin`@`%` PROCEDURE `sp_medebes_users_select_mail_or_name`(IN v_info VARCHAR(255))
 BEGIN
 
 	SELECT * FROM users WHERE mail = v_info OR name = v_info;
@@ -1781,7 +1790,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_medebes_users_select_name`(IN v_name VARCHAR(255))
+CREATE DEFINER=`avnadmin`@`%` PROCEDURE `sp_medebes_users_select_name`(IN v_name VARCHAR(255))
 BEGIN
 
 	SELECT * FROM users WHERE name = v_name;
@@ -1792,6 +1801,7 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+SET @@SESSION.SQL_LOG_BIN = @MYSQLDUMP_TEMP_LOG_BIN;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -1802,4 +1812,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-10-19 16:44:41
+-- Dump completed on 2024-10-27 14:06:49
